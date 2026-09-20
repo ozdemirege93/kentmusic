@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>keNT SOUND DESIGN | Industry Standard Audio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --bg-darker: #000000;
+            --red-neon: #ff003c;
+            --red-dark: #8a0000;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-red: rgba(255, 0, 60, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-darker); color: var(--text-main); font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+
+        /* --- LOCAL VIDEO BACKGROUND --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; background: #000;
+        }
+        .video-background video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.5; filter: grayscale(10%) contrast(120%);
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.4); z-index: -1; pointer-events: none;
+        }
+
+        /* --- SİNEMATİK GEÇİŞ EFEKTİ --- */
+        .transition-flash {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--red-neon); mix-blend-mode: overlay;
+            opacity: 0; pointer-events: none; z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        .transition-flash.active { opacity: 0.85; }
+
+        /* --- ANIMASYONLAR --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 10px var(--red-dark); } 50% { box-shadow: 0 0 35px var(--red-neon); } 100% { box-shadow: 0 0 10px var(--red-dark); } }
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .site-logo { height: 50px; filter: drop-shadow(0 0 8px var(--red-neon)); animation: pulseGlow 3s infinite; }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
+
+        /* --- PARLAYAN ÖZEL FREE CONTENT MENÜ BUTONU --- */
+        nav a.nav-free-btn {
+            background: rgba(255, 0, 60, 0.15);
+            color: #ffffff;
+            border: 1px solid var(--red-neon);
+            padding: 0.45rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4), inset 0 0 10px rgba(255, 0, 60, 0.2);
+            text-shadow: 0 0 8px var(--red-neon);
+            transition: all 0.3s ease;
+            animation: pulseNavGlow 2.5s infinite;
+        }
+        nav a.nav-free-btn:hover {
+            background: var(--red-neon);
+            color: #000000;
+            box-shadow: 0 0 25px var(--red-neon), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            text-shadow: none;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @keyframes pulseNavGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+            50% { box-shadow: 0 0 22px rgba(255, 0, 60, 0.7), inset 0 0 14px rgba(255, 0, 60, 0.35); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 5rem 5% 1rem 5%; position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-logo-large {
+            width: 780px; max-width: 85%; max-height: 25vh;
+            object-fit: contain; margin-bottom: 0.5rem;
+            animation: float 4s ease-in-out infinite; filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.9));
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif; font-size: clamp(2rem, 5vw, 4rem);
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+        .hero h1 span { color: var(--red-neon); text-shadow: 0 0 20px var(--red-neon); }
+        
+        .hero p {
+            font-size: clamp(1rem, 1.5vw, 1.3rem); color: #ffffff;
+            max-width: 850px; margin-bottom: 1rem; line-height: 1.6; font-weight: 500;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1), 0 0 20px rgba(255,0,60,0.4);
+            background: rgba(0, 0, 0, 0.5); padding: 1rem 2rem; border-radius: 15px;
+            border: 1px solid rgba(255, 0, 60, 0.3); backdrop-filter: blur(8px);
+        }
+
+        .hero-red-logo {
+            width: 390px; max-width: 70%; max-height: 10vh;
+            object-fit: contain; margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 25px rgba(255, 0, 60, 0.6));
+            animation: float 5s ease-in-out infinite reverse;
+        }
+
+        .cyber-btn {
+            display: inline-block; background: rgba(0, 0, 0, 0.6); color: var(--red-neon);
+            border: 1px solid var(--red-neon); padding: 1rem 3rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem; text-transform: uppercase; text-decoration: none; letter-spacing: 2px;
+            backdrop-filter: blur(5px); transition: all 0.2s;
+            box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2), 0 0 15px rgba(255, 0, 60, 0.4);
+            cursor: pointer;
+        }
+        .cyber-btn:hover {
+            background-color: var(--red-neon); color: var(--bg-darker);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px var(--red-neon);
+            transform: scale(1.03);
+        }
+        .cyber-btn:active { transform: scale(0.95); }
+
+        /* --- INTERACTIVE SLIDER SHOWCASE --- */
+        .slider-showcase-section {
+            padding: 4rem 5% 5rem 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slider-frame-container {
+            width: 100%;
+            max-width: 960px;
+            background: rgba(12, 12, 16, 0.95);
+            border: 1px solid var(--border-red);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 0, 60, 0.25);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+        }
+
+        .slider-frame-container:hover {
+            border-color: var(--red-neon);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 0, 60, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .slider-frame-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: rgba(18, 18, 24, 0.95);
+            border-bottom: 1px solid #222;
+        }
+
+        .slider-frame-header .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .slider-frame-header .dot.red { background: #ff003c; box-shadow: 0 0 8px #ff003c; }
+        .slider-frame-header .dot.yellow { background: #eab308; }
+        .slider-frame-header .dot.green { background: #22c55e; }
+
+        .slider-frame-title {
+            margin-left: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            border: 1px solid rgba(255, 0, 60, 0.4);
+            width: 44px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            user-select: none;
+        }
+
+        .slider-btn:hover {
+            background: var(--red-neon);
+            color: #000;
+            border-color: var(--red-neon);
+            box-shadow: 0 0 20px var(--red-neon);
+        }
+
+        .prev-btn { left: 15px; border-radius: 6px 0 0 6px; }
+        .next-btn { right: 15px; border-radius: 0 6px 6px 0; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        .dot-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot-indicator.active {
+            background: var(--red-neon);
+            box-shadow: 0 0 10px var(--red-neon);
+            transform: scale(1.25);
+        }
+
+        /* --- TRUST / YORUMLAR --- */
+        .trust-section { padding: 5rem 5%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.95)); text-align: center; }
+        .section-header h2 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; margin-bottom: 3rem; text-transform: uppercase; }
+        .section-header h2 span { color: var(--red-neon); }
+        .bubble-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .speech-bubble {
+            background: rgba(20, 20, 20, 0.8); border: 1px solid #333; border-left: 2px solid var(--red-neon);
+            border-radius: 8px; padding: 1.5rem; max-width: 350px; text-align: left;
+            backdrop-filter: blur(10px); transition: transform 0.3s;
+        }
+        .speech-bubble:hover { transform: translateY(-5px); border-left-width: 4px; border-color: var(--red-neon); }
+        .speech-bubble p { font-size: 0.95rem; font-style: italic; color: var(--text-muted); margin-bottom: 1rem; }
+        .speech-bubble h4 { color: #fff; font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 1px; }
+
+        /* --- LOGO SHOWCASE --- */
+        .showcase-section {
+            background: rgba(10, 0, 0, 0.8); padding: 2.5rem 0;
+            border-top: 1px solid var(--border-red); border-bottom: 1px solid var(--border-red);
+            overflow: hidden; backdrop-filter: blur(10px);
+        }
+        .marquee-container { width: 200%; display: flex; animation: scrollMarquee 25s linear infinite; }
+        .marquee-content { display: flex; justify-content: space-around; width: 50%; align-items: center; }
+        .marquee-img { height: 90px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(255,255,255,0.05)); transition: 0.5s; }
+        .marquee-img:hover { transform: scale(1.15); filter: drop-shadow(0 0 25px var(--red-neon)); }
+
+        /* --- PAKETLER KISMI --- */
+        .store-section { padding: 6rem 5%; background: rgba(0,0,0,0.98); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 0 auto; }
+
+        .card {
+            background: linear-gradient(145deg, #111, #050505); border: 1px solid #222;
+            border-radius: 12px; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--red-neon); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.15); }
+        
+        .pack-cover {
+            height: 220px; display: flex; align-items: center; justify-content: center;
+            background-size: cover; background-position: center; border-bottom: 1px solid #222;
+        }
+        .bg-free { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800'); }
+        .bg-trap { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800'); }
+        .bg-game { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800'); }
+
+        .pack-cover img { width: 70%; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 15px 15px rgba(0,0,0,1)); }
+        
+        .card-content { padding: 2rem; text-align: center; }
+        .card-category { font-size: 0.8rem; color: var(--red-neon); text-transform: uppercase; font-weight: 800; letter-spacing: 2px; margin-bottom: 0.5rem; }
+        .card h3 { font-family: 'Oswald', sans-serif; font-size: 1.6rem; margin-bottom: 1rem; }
+        .card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; padding-top: 1.5rem; }
+        .price { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: #fff; }
+        .price span { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; margin-right: 0.5rem; }
+
+        /* --- VIP BANNER BÖLÜMÜ --- */
+        .vip-banner {
+            display: flex; align-items: center; justify-content: space-between;
+            background: linear-gradient(135deg, rgba(20,0,0,0.95), rgba(5,5,5,1));
+            border: 1px solid var(--red-neon); border-radius: 20px; padding: 4rem;
+            margin: 5rem auto 0 auto; max-width: 1300px;
+            box-shadow: 0 0 40px rgba(255, 0, 60, 0.2); position: relative; overflow: hidden;
+        }
+        .vip-banner::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,0,60,0.03) 10px, rgba(255,0,60,0.03) 20px);
+            pointer-events: none;
+        }
+        .vip-info { width: 60%; text-align: left; z-index: 2; }
+        .vip-info h2 { font-family: 'Oswald', sans-serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
+        .vip-info h2 span { color: var(--red-neon); text-shadow: 0 0 15px var(--red-neon); }
+        .vip-info p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.6; }
+        .vip-visual { width: 35%; display: flex; justify-content: center; z-index: 2; }
+        .vip-visual img { width: 100%; max-width: 350px; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.9)); }
+        
+        /* --- NEWSLETTER SECTION --- */
+        .newsletter-section {
+            padding: 5rem 5%;
+            background: linear-gradient(to top, rgba(0,0,0,1), rgba(10,0,0,0.8));
+            display: flex; justify-content: center; align-items: center; text-align: center;
+        }
+        .newsletter-box {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid #222; border-top: 3px solid var(--red-neon);
+            border-radius: 12px; padding: 4rem 2rem; max-width: 800px; width: 100%;
+            backdrop-filter: blur(10px); box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+        .newsletter-box h3 {
+            font-family: 'Oswald', sans-serif; font-size: 2rem; color: #fff;
+            margin-bottom: 2rem; letter-spacing: 1px;
+        }
+        .newsletter-form {
+            display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;
+        }
+        .newsletter-form input {
+            padding: 1rem 1.5rem; font-family: 'Poppins', sans-serif; font-size: 1rem;
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #fff;
+            border-radius: 4px; width: 100%; max-width: 400px; outline: none; transition: 0.3s;
+        }
+        .newsletter-form input:focus {
+            border-color: var(--red-neon); box-shadow: 0 0 15px rgba(255,0,60,0.3);
+        }
+        .contact-info {
+            border-top: 1px solid #222; padding-top: 2rem; margin-top: 1rem;
+        }
+        .contact-info p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; font-weight: 300; }
+        .contact-info a { color: var(--red-neon); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .contact-info a:hover { text-shadow: 0 0 10px var(--red-neon); color: #fff; }
+
+        /* --- SAĞ ALT YEŞİL BİLDİRİM KUTUSU --- */
+        .toast-notification {
+            position: fixed; bottom: 30px; right: 30px;
+            background: rgba(12, 12, 12, 0.95); border: 1px solid #22c55e; border-left: 5px solid #22c55e;
+            color: #fff; padding: 1.2rem 1.8rem; border-radius: 8px;
+            display: flex; align-items: center; gap: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(34, 197, 94, 0.35);
+            z-index: 10000; opacity: 0; transform: translateY(30px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
+            backdrop-filter: blur(10px);
+        }
+        .toast-notification.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .toast-icon {
+            width: 26px; height: 26px; background: #22c55e; color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 15px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+        }
+        .toast-text { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #22c55e; text-transform: uppercase; }
+
+        /* --- SAĞ ÜST CANLI KULLANICI İSTATİSTİĞİ --- */
+        .live-stats-widget {
+            position: fixed; top: 90px; right: 5%;
+            background: rgba(10, 10, 10, 0.85); border: 1px solid #333; border-left: 3px solid var(--red-neon);
+            padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 15px;
+            backdrop-filter: blur(10px); box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            z-index: 9998; font-family: 'Oswald', sans-serif; font-size: 0.9rem; color: var(--text-muted);
+        }
+        .stat-item { display: flex; align-items: center; gap: 8px; }
+        .pulsing-dot {
+            width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e; animation: pulseLive 2s infinite;
+        }
+        @keyframes pulseLive {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .number-roller {
+            position: relative; display: inline-block; width: 12px; height: 1.3rem;
+            overflow: hidden; vertical-align: middle; color: #fff; font-weight: 700;
+        }
+        .rolling-num {
+            position: absolute; left: 0; width: 100%; text-align: center;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .rolling-num.current { top: 0; }
+        .rolling-num.next { top: 100%; }
+        .rolling-num.out { top: -100%; }
+        .stat-divider { width: 1px; height: 16px; background: #444; }
+        .highlight-num { color: #fff; font-weight: 700; }
+
+        /* --- SOL ALT FON MÜZİĞİ KONTROL WIDGET'I --- */
+        .audio-control-widget {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(12, 12, 16, 0.9);
+            border: 1px solid var(--border-red);
+            border-left: 3px solid var(--red-neon);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 9998;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8), 0 0 15px rgba(255, 0, 60, 0.2);
+            user-select: none;
+        }
+        .audio-control-widget:hover {
+            border-color: var(--red-neon);
+            box-shadow: 0 0 25px var(--red-neon);
+            transform: translateY(-2px);
+        }
+        .audio-wave-anim {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+        .audio-bar {
+            width: 2px;
+            background: var(--red-neon);
+            border-radius: 1px;
+            height: 4px;
+            transition: height 0.2s;
+        }
+        .audio-playing .audio-bar:nth-child(1) { animation: soundBar 0.8s ease-in-out infinite alternate; }
+        .audio-playing .audio-bar:nth-child(2) { animation: soundBar 1.2s ease-in-out infinite alternate 0.2s; }
+        .audio-playing .audio-bar:nth-child(3) { animation: soundBar 0.9s ease-in-out infinite alternate 0.4s; }
+        @keyframes soundBar {
+            0% { height: 3px; }
+            100% { height: 12px; }
+        }
+        
+        @media (max-width: 768px) {
+            .vip-banner { flex-direction: column; text-align: center; padding: 2rem; }
+            .vip-info, .vip-visual { width: 100%; text-align: center; }
+            .vip-visual { margin-top: 3rem; }
+            .vip-info .price-row { justify-content: center !important; }
+            .live-stats-widget { top: 80px; right: 5%; left: auto; padding: 6px 12px; gap: 10px; font-size: 0.8rem; }
+            .toast-notification { bottom: 80px; left: 15px; right: 15px; justify-content: center; }
+            .slider-frame-container { max-width: 100%; }
+            .audio-control-widget { bottom: 80px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+        }
+
+        footer { background: #000; text-align: center; padding: 3rem 5% 7rem 5%; border-top: 2px solid var(--red-dark); }
+        footer p { color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- ARKA PLAN FON MÜZİĞİ SES DOSYASI -->
+    <audio id="site-bg-music" loop src="bg-music.mp3" preload="auto"></audio>
+
+    <div class="transition-flash"></div>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Space and Nebula 2 (Stock Video).mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Fire Logo" class="site-logo"></a>
+        </div>
+        <nav>
+            <a href="#store">Packs</a>
+            <a href="free-packs.html" class="nav-free-btn">Free Content</a>
+            <a href="#store">Membership</a>
+        </nav>
+    </header>
+
+    <section class="hero reveal active">
+        <img src="KENT2 KAPAIK.png" alt="keNT Main Brand" class="hero-logo-large">
+        <h1>Forged in Fire. <span>Built for Industry.</span></h1>
+        
+        <p>We craft high-octane sound designs, brutal drum kits, and immersive game audio assets. Step into the multiverse of keNT and arm your projects with industry-standard audio.</p>
+        
+        <img src="d4732525-3298-49c4-a32b-12e70de5b31d.png" alt="Özdemir Production Logo" class="hero-red-logo">
+        <br>
+        
+        <a href="#store" class="cyber-btn" id="vault-btn">Access The Vault</a>
+    </section>
+
+    <!-- INTERACTIVE SLIDER SHOWCASE -->
+    <section class="slider-showcase-section reveal">
+        <div class="slider-frame-container">
+            <div class="slider-frame-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="slider-frame-title">keNT // INTERACTIVE SYSTEM & WORKFLOW GUIDE</span>
+            </div>
+            
+            <div class="slider-wrapper">
+                <div class="slide active">
+                    <img src="Code_Generated_Image.png" alt="keNT System Initialization">
+                </div>
+                <div class="slide">
+                    <img src="Code_Generated_Image (1).png" alt="Universal Platform Compatibility">
+                </div>
+                <div class="slide">
+                    <img src="Code_Generated_Image (2).png" alt="Seamless Drag and Drop Integration">
+                </div>
+                <div class="slide">
+                    <img src="Code_Generated_Image (3).png" alt="3D Spatial Audio and Trigger Systems">
+                </div>
+                <div class="slide">
+                    <img src="Code_Generated_Image (4).png" alt="100% Royalty-Free Commercial Freedom">
+                </div>
+                <div class="slide">
+                    <img src="Code_Generated_Image (5).png" alt="Access The Arsenal - Forged in Fire">
+                </div>
+
+                <button class="slider-btn prev-btn" id="slider-prev" aria-label="Previous Slide">&#10094;</button>
+                <button class="slider-btn next-btn" id="slider-next" aria-label="Next Slide">&#10095;</button>
+
+                <div class="slider-dots" id="slider-dots">
+                    <span class="dot-indicator active" data-index="0"></span>
+                    <span class="dot-indicator" data-index="1"></span>
+                    <span class="dot-indicator" data-index="2"></span>
+                    <span class="dot-indicator" data-index="3"></span>
+                    <span class="dot-indicator" data-index="4"></span>
+                    <span class="dot-indicator" data-index="5"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="section-header reveal">
+            <h2>Industry <span>Trusted</span></h2>
+        </div>
+        <div class="bubble-container reveal">
+            <div class="speech-bubble">
+                <p>"The drum loops are completely insane. Dropping these trap beats directly into my FL Studio workflow saved me hours of mixing. End-to-end fire."</p>
+                <h4>- Indie Hip-Hop Producer</h4>
+            </div>
+            <div class="speech-bubble">
+                <p>"I needed high-quality sci-fi UI and ambience sounds for my latest Unity engine project. This pack delivered beyond expectations."</p>
+                <h4>- Lead Game Developer</h4>
+            </div>
+            <div class="speech-bubble">
+                <p>"keNT's sound design is pristine. The frequencies sit perfectly in the mix without muddying the master track."</p>
+                <h4>- Studio Audio Engineer</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="showcase-section reveal">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <img src="cc7fe898-ac6a-4930-8e81-c0157a6cd9ea.png" alt="keNT New 1" class="marquee-img">
+                <img src="207337f6-ea1a-45bc-8644-13360a132cb7.png" alt="Zebra Red" class="marquee-img">
+                <img src="6c1e40e1-56a4-44fe-9d05-8f3ead24858c.png" alt="keNT New 2" class="marquee-img">
+                <img src="f81bc04a-945e-4724-baed-98c184acf5a2.png" alt="Mosaic" class="marquee-img">
+                <img src="534fa535-adb1-483d-b026-d5089412337b.png" alt="keNT New 3" class="marquee-img">
+                <img src="e90d061c-6c36-4321-ab8d-2887bf68bf6b.png" alt="keNT New 4" class="marquee-img">
+                <img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="Fire" class="marquee-img">
+            </div>
+            <div class="marquee-content">
+                <img src="cc7fe898-ac6a-4930-8e81-c0157a6cd9ea.png" alt="keNT New 1" class="marquee-img">
+                <img src="207337f6-ea1a-45bc-8644-13360a132cb7.png" alt="Zebra Red" class="marquee-img">
+                <img src="6c1e40e1-56a4-44fe-9d05-8f3ead24858c.png" alt="keNT New 2" class="marquee-img">
+                <img src="f81bc04a-945e-4724-baed-98c184acf5a2.png" alt="Mosaic" class="marquee-img">
+                <img src="534fa535-adb1-483d-b026-d5089412337b.png" alt="keNT New 3" class="marquee-img">
+                <img src="e90d061c-6c36-4321-ab8d-2887bf68bf6b.png" alt="keNT New 4" class="marquee-img">
+                <img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="Fire" class="marquee-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="store" class="store-section">
+        <div class="section-header reveal">
+            <h2>Premium <span>Arsenal</span></h2>
+        </div>
+
+        <div class="grid-container">
+            <!-- 1. KART: keNT ESSENTIALS -->
+            <div class="card reveal">
+                <div class="pack-cover bg-free">
+                    <img src="a5a633dc-6bea-44ab-a52a-3fd4c5a1fcb0.png" alt="keNT Essentials New Logo">
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Starter Kit</div>
+                    <h3>keNT Essentials</h3>
+                    <p>A brutal selection of our hardest kicks and snares. Test the raw power of our audio quality.</p>
+                    <div class="price-row">
+                        <span class="price"><span>$14.99</span>FREE</span>
+                        <a href="download-drumkit.html" class="cyber-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem; display: inline-block; text-decoration: none;">⚡ Download Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <div class="pack-cover bg-trap">
+                    <img src="9cd8d5bd-e5f9-49f0-86a8-fec5c98f8933.png" alt="Trap Loops Logo">
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Beatmaking</div>
+                    <h3>Inferno Trap - 40 Loops</h3>
+                    <p>40 dark, meticulously crafted melody and drum loops. 100% Royalty-free.</p>
+                    <div class="price-row">
+                        <span class="price">$9.99</span>
+                        <button class="cyber-btn" style="padding: 0.5rem 1rem; font-size: 1rem;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <div class="pack-cover bg-game">
+                    <img src="44b2deb3-9f38-47b6-ba34-938a3be930fe.png" alt="Game Audio Logo">
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Game Dev</div>
+                    <h3>Cyberpunk UI & Ambience</h3>
+                    <p>High-tech interface clicks, glitch transitions, and dystopian background tracks.</p>
+                    <div class="price-row">
+                        <span class="price">$19.99</span>
+                        <button class="cyber-btn" style="padding: 0.5rem 1rem; font-size: 1rem;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vip-banner reveal">
+            <div class="vip-info">
+                <h2>THE MASTER VAULT <span>[VIP]</span></h2>
+                <p>Unlock every single sound. Get unlimited downloads to all current loop packs, game audio files, and all future drops. Become an elite producer and arm your studio with the ultimate arsenal.</p>
+                <div class="price-row" style="border: none; padding: 0; justify-content: flex-start; gap: 2rem;">
+                    <span class="price" style="font-size: 2.5rem;">$29.99<span style="font-size: 1.2rem; color: #b3b3b3;">/mo</span></span>
+                    <button class="cyber-btn" style="background: var(--red-neon); color: black;">Subscribe Now</button>
+                </div>
+            </div>
+            <div class="vip-visual">
+                <img src="KENT2 KAPAIK.png" alt="VIP Access Logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER & CONTACT SECTION -->
+    <section class="newsletter-section reveal">
+        <div class="newsletter-box">
+            <h3>ENTER YOUR EMAIL FOR NEW PACKS AND UPDATES</h3>
+            
+            <form id="newsletter-form" class="newsletter-form">
+                <input type="email" name="Subscriber_Email" placeholder="Your Email Address" required>
+                <button type="submit" class="cyber-btn">Subscribe</button>
+            </form>
+
+            <div class="contact-info">
+                <p>For website issues, partnerships, and ideas, you can reach us at:<br>
+                <a href="mailto:kent.can.do.beats@gmail.com">kent.can.do.beats@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAĞ ALT POP-UP BİLDİRİMİ -->
+    <div id="toast-notification" class="toast-notification">
+        <div class="toast-icon">✓</div>
+        <div class="toast-text">U SUCCESSFULLY SUBSCRIBED TO OUR NEWS SYSTEM</div>
+    </div>
+
+    <!-- SAĞ ÜST CANLI İSTATİSTİK WIDGET'I -->
+    <div class="live-stats-widget">
+        <div class="stat-item">
+            <div class="pulsing-dot"></div>
+            <span>ACTIVE ON SITE:</span>
+            <div class="number-roller" id="roller-container">
+                <span class="rolling-num current" id="live-users-count"></span>
+            </div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span style="font-size: 1.1rem;">👤</span>
+            <span>MEMBERS:</span>
+            <span class="highlight-num">57</span>
+        </div>
+    </div>
+
+    <!-- SOL ALT FON MÜZİĞİ KONTROL WIDGET'I -->
+    <div class="audio-control-widget" id="audio-toggle-widget" title="Müziği Durdur / Başlat">
+        <div class="audio-wave-anim" id="audio-wave">
+            <span class="audio-bar"></span>
+            <span class="audio-bar"></span>
+            <span class="audio-bar"></span>
+        </div>
+        <span id="audio-widget-text">BGM: 25%</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 keNT SOUND DESIGN. Forged in Fire. All rights reserved.</p>
+        <p style="font-size: 0.65rem; color: #333333; margin-top: 8px; letter-spacing: 1.5px;">KOVALA İSTEDİYSEN KOLAY SON.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- FON MÜZİĞİ YÖNETİMİ (%25 SES SEVİYESİ & AUTOPLAY DESTEĞİ) ---
+            const bgMusic = document.getElementById('site-bg-music');
+            const musicWidget = document.getElementById('audio-toggle-widget');
+            const musicText = document.getElementById('audio-widget-text');
+            const audioWave = document.getElementById('audio-wave');
+
+            if (bgMusic) {
+                bgMusic.volume = 0.25; // %25 ses seviyesi
+
+                const setPlayingState = (isPlaying) => {
+                    if (isPlaying) {
+                        musicText.textContent = 'BGM: 25%';
+                        audioWave.classList.add('audio-playing');
+                        musicWidget.style.borderColor = 'var(--red-neon)';
+                    } else {
+                        musicText.textContent = 'BGM: OFF';
+                        audioWave.classList.remove('audio-playing');
+                        musicWidget.style.borderColor = '#444';
+                    }
+                };
+
+                const tryAutoplay = () => {
+                    bgMusic.play().then(() => {
+                        setPlayingState(true);
+                    }).catch(() => {
+                        setPlayingState(false);
+                    });
+                };
+
+                tryAutoplay();
+
+                // Tarayıcı autoplay'e izin vermezse sayfadaki ilk etkileşimde başlat
+                const onFirstInteraction = () => {
+                    if (bgMusic.paused && !bgMusic.dataset.manuallyPaused) {
+                        bgMusic.play().then(() => {
+                            setPlayingState(true);
+                        }).catch(() => {});
+                    }
+                    document.removeEventListener('click', onFirstInteraction);
+                    document.removeEventListener('keydown', onFirstInteraction);
+                };
+                document.addEventListener('click', onFirstInteraction);
+                document.addEventListener('keydown', onFirstInteraction);
+
+                if (musicWidget) {
+                    musicWidget.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (bgMusic.paused) {
+                            bgMusic.dataset.manuallyPaused = '';
+                            bgMusic.play().then(() => setPlayingState(true));
+                        } else {
+                            bgMusic.dataset.manuallyPaused = 'true';
+                            bgMusic.pause();
+                            setPlayingState(false);
+                        }
+                    });
+                }
+            }
+
+            // Scroll animasyonu
+            const reveals = document.querySelectorAll(".reveal");
+            const revealOnScroll = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(reveal => revealOnScroll.observe(reveal));
+
+            // Vault Butonu Warp Efekti
+            const vaultBtn = document.getElementById("vault-btn");
+            const flash = document.querySelector(".transition-flash");
+            const hero = document.querySelector(".hero");
+
+            if(vaultBtn) {
+                vaultBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    flash.classList.add("active");
+                    hero.style.transform = "scale(0.92)";
+
+                    setTimeout(() => {
+                        document.querySelector("#store").scrollIntoView({ behavior: "auto" });
+                        flash.classList.remove("active");
+                        hero.style.transform = "scale(1)";
+                    }, 350); 
+                });
+            }
+
+            // SIFIR YÖNLENDİRMELİ ABONELİK SİSTEMİ
+            const newsletterForm = document.getElementById("newsletter-form");
+            const toast = document.getElementById("toast-notification");
+
+            if (newsletterForm) {
+                newsletterForm.addEventListener("submit", function(e) {
+                    e.preventDefault(); 
+                    const emailInput = this.querySelector('input[name="Subscriber_Email"]');
+                    const emailValue = emailInput.value;
+
+                    toast.classList.add("show");
+                    setTimeout(() => { toast.classList.remove("show"); }, 5000);
+                    emailInput.value = "";
+
+                    fetch("https://formsubmit.co/ajax/kent.can.do.beats@gmail.com", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            _subject: "New Subscriber: keNT Sound Design Reminder Service!",
+                            Subscriber_Email: emailValue,
+                            Message: "Bu kisi sitenin hatirlatma hizmetine uye oldu: " + emailValue
+                        })
+                    }).catch(err => console.log(err));
+                });
+            }
+
+            // CANLI KULLANICI DÖNGÜSÜ
+            const liveSequence = [3,4,5,4,6,5,4,3,2,4,6,7,5,4,3,2,6,4,7,8,7,6,5,6,5,3,4,5,3,2];
+            const intervalMs = 30 * 60 * 1000; 
+
+            function updateLiveUsers() {
+                const now = Date.now();
+                const index = Math.floor(now / intervalMs) % liveSequence.length;
+                const targetNumber = liveSequence[index];
+                
+                const container = document.getElementById("roller-container");
+                const currentSpan = document.getElementById("live-users-count");
+
+                if (currentSpan.innerText === "") {
+                    currentSpan.innerText = targetNumber;
+                } else if (currentSpan.innerText != targetNumber) {
+                    const newSpan = document.createElement("span");
+                    newSpan.className = "rolling-num next";
+                    newSpan.innerText = targetNumber;
+                    container.appendChild(newSpan);
+
+                    currentSpan.classList.add("out");
+                    
+                    setTimeout(() => {
+                        newSpan.classList.remove("next");
+                        newSpan.classList.add("current");
+                    }, 50);
+
+                    setTimeout(() => {
+                        currentSpan.innerText = targetNumber;
+                        currentSpan.classList.remove("out");
+                        newSpan.remove();
+                    }, 1200);
+                }
+
+                const timeToNext = intervalMs - (now % intervalMs);
+                setTimeout(updateLiveUsers, timeToNext);
+            }
+
+            updateLiveUsers();
+
+            // SLIDER DÖNGÜSÜ (5 SANİYE)
+            const slides = document.querySelectorAll('.slider-wrapper .slide');
+            const dots = document.querySelectorAll('.dot-indicator');
+            const prevBtn = document.getElementById('slider-prev');
+            const nextBtn = document.getElementById('slider-next');
+            let currentSlide = 0;
+            let slideInterval = null;
+
+            function showSlide(index) {
+                slides.forEach((s, i) => {
+                    s.classList.toggle('active', i === index);
+                });9
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === index);
+                });
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                let nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            function prevSlide() {
+                let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopAutoPlay() {
+                if (slideInterval) clearInterval(slideInterval);
+            }
+
+            if (nextBtn && prevBtn) {
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    startAutoPlay();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    startAutoPlay();
+                });
+
+                dots.forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        const idx = parseInt(e.target.getAttribute('data-index'));
+                        showSlide(idx);
+                        startAutoPlay();
+                    });
+                });
+
+                startAutoPlay();
+            }
+        });
+    </script>
+</body>
+</html>

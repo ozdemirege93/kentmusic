@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Heavy Artillery Drums | keNT SOUND DESIGN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-darker: #000000;
+            --red-neon: #ff003c;
+            --red-dark: #8a0000;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-red: rgba(255, 0, 60, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; background: #000;
+        }
+        .video-background video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.45; filter: grayscale(20%) contrast(120%);
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .site-logo { height: 48px; filter: drop-shadow(0 0 8px var(--red-neon)); }
+        nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
+
+        /* --- MAIN CONTENT CARD CONTAINER --- */
+        .download-wrapper {
+            padding: 10rem 1rem 4rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .download-card {
+            background: linear-gradient(160deg, rgba(18,18,18,0.95), rgba(5,5,5,0.98));
+            border: 1px solid var(--border-red);
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 0, 60, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red-neon), transparent);
+        }
+
+        /* LEFT SIDE COVER */
+        .pack-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255,0,60,0.1) 0%, rgba(0,0,0,0.8) 80%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .pack-preview-box img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
+            animation: floatAnim 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAnim {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: rgba(255, 0, 60, 0.2);
+            border: 1px solid var(--red-neon);
+            color: var(--red-neon);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* RIGHT SIDE DETAILS */
+        .pack-details-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pack-details-box h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255,0,60,0.4);
+        }
+
+        .pack-details-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 1rem 0;
+        }
+
+        .specs-list li {
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .specs-list li span {
+            color: var(--red-neon);
+            font-weight: bold;
+        }
+
+        /* DIRECT DOWNLOAD BUTTON */
+        .cyber-btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--red-neon);
+            color: #000;
+            border: 1px solid var(--red-neon);
+            padding: 1.1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+            cursor: pointer;
+        }
+
+        .cyber-btn-download:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .back-link:hover { color: var(--red-neon); }
+
+        footer { background: #000; text-align: center; padding: 2rem 5%; border-top: 1px solid #1a1a1a; }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+
+        @media (max-width: 850px) {
+            .download-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+            .pack-details-box h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Space and Nebula 2 (Stock Video).mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Logo" class="site-logo"></a>
+        <nav>
+            <a href="index.html#store">Packs</a>
+            <a href="free-packs.html">Free Content</a>
+            <a href="index.html#store">Membership</a>
+        </nav>
+    </header>
+
+    <main class="download-wrapper">
+        <div class="download-card">
+            
+            <div class="pack-preview-box">
+                <span class="badge-tag">100% Royalty Free</span>
+                <img src="6c1e40e1-56a4-44fe-9d05-8f3ead24858c.png" alt="Heavy Artillery Drums Cover">
+            </div>
+
+            <div class="pack-details-box">
+                <h1>Heavy Artillery Drums</h1>
+                <p>Engineered for high-impact beat production. Clean, punchy, uncompressed 24-bit WAV samples ready to drop into any DAW.</p>
+                
+                <ul class="specs-list">
+                    <li><span>✓</span> Format: 24-Bit High-Quality WAV</li>
+                    <li><span>✓</span> Compatibility: FL Studio, Ableton, Logic, Logic Pro, MPC</li>
+                    <li><span>✓</span> Contents: Kicks, Snares, Claps, Hi-Hats, Percs & Acoustic Fills</li>
+                    <li><span>✓</span> License: 100% Commercial Royalty-Free</li>
+                </ul>
+
+                <!-- DOĞRUDAN LOKAL İNDİRME BUTONU -->
+                <a href="downloads/keNT DRUM LOOPS DEMO.zip" download="keNT DRUM LOOPS DEMO.zip" class="cyber-btn-download" id="start-download-btn">
+                    ⚡ DOWNLOAD ZIP NOW
+                </a>
+
+                <a href="free-packs.html" class="back-link">← Back to Free Sound Kits</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 keNT SOUND DESIGN. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // İndirmeye tıklandığında anında buton geri bildirimi
+        document.getElementById('start-download-btn').addEventListener('click', function() {
+            const btn = this;
+            btn.innerHTML = '⚡ DOWNLOADING...';
+            btn.style.opacity = '0.8';
+            setTimeout(() => {
+                btn.innerHTML = '✓ STARTED SUCCESSFULLY';
+                btn.style.background = '#22c55e';
+                btn.style.borderColor = '#22c55e';
+                btn.style.color = '#000';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
