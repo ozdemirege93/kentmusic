@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Heavy Artillery Drums | keNT SOUND DESIGN</title>
+    <title>Download Pro Game Audio & UI Vault | keNT SOUND DESIGN</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
     
     <style>
@@ -45,16 +45,44 @@
 
         /* --- HEADER --- */
         header {
-            padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-red);
             position: fixed; width: 100%; top: 0; z-index: 1000;
         }
-        .site-logo { height: 48px; filter: drop-shadow(0 0 8px var(--red-neon)); }
+        .site-logo { height: 50px; filter: drop-shadow(0 0 8px var(--red-neon)); }
+        nav { display: flex; align-items: center; }
         nav a {
             color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
             font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
         }
         nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
+
+        /* --- PARLAYAN ÖZEL FREE CONTENT MENÜ BUTONU --- */
+        nav a.nav-free-btn {
+            background: rgba(255, 0, 60, 0.15);
+            color: #ffffff;
+            border: 1px solid var(--red-neon);
+            padding: 0.45rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4), inset 0 0 10px rgba(255, 0, 60, 0.2);
+            text-shadow: 0 0 8px var(--red-neon);
+            transition: all 0.3s ease;
+            animation: pulseNavGlow 2.5s infinite;
+        }
+        nav a.nav-free-btn:hover {
+            background: var(--red-neon);
+            color: #000000;
+            box-shadow: 0 0 25px var(--red-neon), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            text-shadow: none;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @keyframes pulseNavGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+            50% { box-shadow: 0 0 22px rgba(255, 0, 60, 0.7), inset 0 0 14px rgba(255, 0, 60, 0.35); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+        }
 
         /* --- MAIN CONTENT CARD CONTAINER --- */
         .download-wrapper {
@@ -99,6 +127,7 @@
             border-radius: 12px;
             padding: 2rem;
             position: relative;
+            min-height: 250px;
         }
 
         .pack-preview-box img {
@@ -236,10 +265,12 @@
     <div class="video-overlay"></div>
 
     <header>
-        <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Logo" class="site-logo"></a>
+        <div class="logo-container">
+            <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Fire Logo" class="site-logo"></a>
+        </div>
         <nav>
             <a href="index.html#store">Packs</a>
-            <a href="free-packs.html">Free Content</a>
+            <a href="free-packs.html" class="nav-free-btn">Free Content</a>
             <a href="index.html#store">Membership</a>
         </nav>
     </header>
@@ -249,22 +280,22 @@
             
             <div class="pack-preview-box">
                 <span class="badge-tag">100% Royalty Free</span>
-                <img src="6c1e40e1-56a4-44fe-9d05-8f3ead24858c.png" alt="Heavy Artillery Drums Cover">
+                <img src="534fa535-adb1-483d-b026-d5089412337b.png" alt="keNT Game Audio Cover">
             </div>
 
             <div class="pack-details-box">
-                <h1>Heavy Artillery Drums</h1>
-                <p>Engineered for high-impact beat production. Clean, punchy, uncompressed 24-bit WAV samples ready to drop into any DAW.</p>
+                <h1>Pro Game Audio & UI Vault</h1>
+                <p>A complete audio arsenal featuring 20+ crisp game UI button clicks, dynamic sound FX, immersive background music tracks, and genre-adaptive music loops designed for indie games and interactive media.</p>
                 
                 <ul class="specs-list">
-                    <li><span>✓</span> Format: 24-Bit High-Quality WAV</li>
-                    <li><span>✓</span> Compatibility: FL Studio, Ableton, Logic, Logic Pro, MPC</li>
-                    <li><span>✓</span> Contents: Kicks, Snares, Claps, Hi-Hats, Percs & Acoustic Fills</li>
-                    <li><span>✓</span> License: 100% Commercial Royalty-Free</li>
+                    <li><span>✓</span> Format: 24-Bit Uncompressed WAV</li>
+                    <li><span>✓</span> Compatibility: Unity, Unreal Engine, Blender, FL Studio & All DAWs</li>
+                    <li><span>✓</span> Contents: 20+ UI Button Sounds, Action FX, Ambience & Theme Loops</li>
+                    <li><span>✓</span> License: 100% Commercial Royalty-Free for Games & Videos</li>
                 </ul>
 
-                <!-- DOĞRUDAN LOKAL İNDİRME BUTONU -->
-                <a href="https://github.com/ozdemirege93/kentmusic/releases/download/v1.0/keNT.DRUM.LOOPS.DEMO.zip" download="keNT DRUM LOOPS DEMO.zip" class="cyber-btn-download" id="start-download-btn">
+                <!-- DOĞRUDAN LOKAL İNDİRME BUTONU (YENİ DOSYA ADI İLE DÜZELTİLDİ) -->
+                <a href="https://github.com/ozdemirege93/kentmusic/releases/download/v1.0/keNT.GAME.AMBIANCE.BUTTONS.zip" download="keNT GAME AMBIANCE & BUTTONS.zip" class="cyber-btn-download" id="start-download-btn">
                     ⚡ DOWNLOAD ZIP NOW
                 </a>
 
@@ -279,7 +310,6 @@
     </footer>
 
     <script>
-        // İndirmeye tıklandığında anında buton geri bildirimi
         document.getElementById('start-download-btn').addEventListener('click', function() {
             const btn = this;
             btn.innerHTML = '⚡ DOWNLOADING...';
