@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>keNT SOUND DESIGN | Industry Standard Audio</title>
+    <title>keNT SOUND DESIGN | Industry Standard Audio & VST Plugins</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
     
     <style>
@@ -15,6 +15,7 @@
             --text-main: #ffffff;
             --text-muted: #b3b3b3;
             --border-red: rgba(255, 0, 60, 0.3);
+            --border-subtle: #222222;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,7 +36,7 @@
             background: rgba(0, 0, 0, 0.4); z-index: -1; pointer-events: none;
         }
 
-        /* --- SİNEMATİK GEÇİŞ EFEKTİ --- */
+        /* --- CINEMATIC TRANSITION FLASH --- */
         .transition-flash {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: var(--red-neon); mix-blend-mode: overlay;
@@ -44,7 +45,7 @@
         }
         .transition-flash.active { opacity: 0.85; }
 
-        /* --- ANIMASYONLAR --- */
+        /* --- ANIMATIONS --- */
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
         @keyframes pulseGlow { 0% { box-shadow: 0 0 10px var(--red-dark); } 50% { box-shadow: 0 0 35px var(--red-neon); } 100% { box-shadow: 0 0 10px var(--red-dark); } }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -66,7 +67,7 @@
         }
         nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
 
-        /* --- PARLAYAN ÖZEL FREE CONTENT MENÜ BUTONU --- */
+        /* --- GLOWING FREE CONTENT NAV BUTTON --- */
         nav a.nav-free-btn {
             background: rgba(255, 0, 60, 0.15);
             color: #ffffff;
@@ -291,19 +292,64 @@
             transform: scale(1.25);
         }
 
-        /* --- TRUST / YORUMLAR --- */
-        .trust-section { padding: 5rem 5%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.95)); text-align: center; }
-        .section-header h2 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; margin-bottom: 3rem; text-transform: uppercase; }
-        .section-header h2 span { color: var(--red-neon); }
-        .bubble-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .speech-bubble {
-            background: rgba(20, 20, 20, 0.8); border: 1px solid #333; border-left: 2px solid var(--red-neon);
-            border-radius: 8px; padding: 1.5rem; max-width: 350px; text-align: left;
-            backdrop-filter: blur(10px); transition: transform 0.3s;
+        /* --- PLUGIN WORKFLOW & INTEGRATION ARCHITECTURE (NEW REPLACED SECTION) --- */
+        .workflow-section {
+            padding: 6rem 5%;
+            background: linear-gradient(to bottom, transparent, rgba(8, 8, 12, 0.95));
+            text-align: center;
         }
-        .speech-bubble:hover { transform: translateY(-5px); border-left-width: 4px; border-color: var(--red-neon); }
-        .speech-bubble p { font-size: 0.95rem; font-style: italic; color: var(--text-muted); margin-bottom: 1rem; }
-        .speech-bubble h4 { color: #fff; font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 1px; }
+        .section-header h2 { font-family: 'Oswald', sans-serif; font-size: 3.2rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .section-header h2 span { color: var(--red-neon); }
+        .section-header p.subhead { color: var(--text-muted); font-size: 1.05rem; max-width: 750px; margin: 0 auto 3.5rem auto; line-height: 1.6; }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+        .workflow-card {
+            background: rgba(14, 14, 18, 0.85);
+            border: 1px solid #282832;
+            border-top: 3px solid var(--red-neon);
+            border-radius: 10px;
+            padding: 2.2rem;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .workflow-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--red-neon);
+            box-shadow: 0 12px 35px rgba(255, 0, 60, 0.2);
+        }
+        .step-tag {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--red-neon);
+            background: rgba(255, 0, 60, 0.1);
+            border: 1px solid var(--border-red);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .workflow-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .workflow-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
 
         /* --- LOGO SHOWCASE --- */
         .showcase-section {
@@ -316,9 +362,9 @@
         .marquee-img { height: 90px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(255,255,255,0.05)); transition: 0.5s; }
         .marquee-img:hover { transform: scale(1.15); filter: drop-shadow(0 0 25px var(--red-neon)); }
 
-        /* --- PAKETLER KISMI --- */
+        /* --- PACKS & STORE SECTION --- */
         .store-section { padding: 6rem 5%; background: rgba(0,0,0,0.98); }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 0 auto; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 0 auto; }
 
         .card {
             background: linear-gradient(145deg, #111, #050505); border: 1px solid #222;
@@ -327,8 +373,9 @@
         .card:hover { transform: translateY(-10px); border-color: var(--red-neon); box-shadow: 0 10px 30px rgba(255, 0, 60, 0.15); }
         
         .pack-cover {
-            height: 220px; display: flex; align-items: center; justify-content: center;
+            height: 240px; display: flex; align-items: center; justify-content: center;
             background-size: cover; background-position: center; border-bottom: 1px solid #222;
+            position: relative; overflow: hidden;
         }
         .bg-free { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800'); }
         .bg-trap { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=800'); }
@@ -336,6 +383,34 @@
 
         .pack-cover img { width: 70%; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 15px 15px rgba(0,0,0,1)); }
         
+        /* --- HEATWAVE 3-MODE ROTATION ANIMATION --- */
+        .vst-cover-anim {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: #000;
+        }
+        .vst-cover-anim img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            padding: 8px;
+            opacity: 0;
+            animation: vstCrossFade 9s infinite ease-in-out;
+        }
+        .vst-cover-anim img:nth-child(1) { animation-delay: 0s; }
+        .vst-cover-anim img:nth-child(2) { animation-delay: 3s; }
+        .vst-cover-anim img:nth-child(3) { animation-delay: 6s; }
+
+        @keyframes vstCrossFade {
+            0% { opacity: 0; transform: scale(0.98); }
+            10% { opacity: 1; transform: scale(1); }
+            33% { opacity: 1; transform: scale(1); }
+            43% { opacity: 0; transform: scale(1.02); }
+            100% { opacity: 0; }
+        }
+
         .card-content { padding: 2rem; text-align: center; }
         .card-category { font-size: 0.8rem; color: var(--red-neon); text-transform: uppercase; font-weight: 800; letter-spacing: 2px; margin-bottom: 0.5rem; }
         .card h3 { font-family: 'Oswald', sans-serif; font-size: 1.6rem; margin-bottom: 1rem; }
@@ -344,7 +419,71 @@
         .price { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: #fff; }
         .price span { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; margin-right: 0.5rem; }
 
-        /* --- VIP BANNER BÖLÜMÜ --- */
+        /* --- DAW COMPATIBILITY DOCK --- */
+        .plugins-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .daw-support-dock {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(14, 14, 18, 0.92);
+            border: 1px solid rgba(255, 0, 60, 0.35);
+            border-radius: 30px;
+            padding: 8px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 0 10px rgba(255, 0, 60, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .daw-dock-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            border-right: 1px solid #333;
+            padding-right: 12px;
+        }
+        .daw-icons-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .daw-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #888;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .daw-item:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .daw-item:hover .daw-logo-svg {
+            color: var(--red-neon);
+            filter: drop-shadow(0 0 10px var(--red-neon));
+        }
+        .daw-logo-svg {
+            width: 24px;
+            height: 24px;
+            color: #999;
+            transition: all 0.3s ease;
+        }
+        .daw-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- VIP BANNER (MASTER VAULT $2.99 & COMING SOON) --- */
         .vip-banner {
             display: flex; align-items: center; justify-content: space-between;
             background: linear-gradient(135deg, rgba(20,0,0,0.95), rgba(5,5,5,1));
@@ -364,6 +503,21 @@
         .vip-visual { width: 35%; display: flex; justify-content: center; z-index: 2; }
         .vip-visual img { width: 100%; max-width: 350px; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.9)); }
         
+        .vault-status-badge {
+            background: rgba(255, 0, 60, 0.15);
+            border: 1px solid var(--red-neon);
+            color: var(--red-neon);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            padding: 0.4rem 1.1rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+        }
+
         /* --- NEWSLETTER SECTION --- */
         .newsletter-section {
             padding: 5rem 5%;
@@ -398,7 +552,7 @@
         .contact-info a { color: var(--red-neon); text-decoration: none; font-weight: 500; transition: 0.3s; }
         .contact-info a:hover { text-shadow: 0 0 10px var(--red-neon); color: #fff; }
 
-        /* --- SAĞ ALT YEŞİL BİLDİRİM KUTUSU --- */
+        /* --- TOAST NOTIFICATION --- */
         .toast-notification {
             position: fixed; bottom: 30px; right: 30px;
             background: rgba(12, 12, 12, 0.95); border: 1px solid #22c55e; border-left: 5px solid #22c55e;
@@ -417,7 +571,7 @@
         }
         .toast-text { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #22c55e; text-transform: uppercase; }
 
-        /* --- SAĞ ÜST CANLI KULLANICI İSTATİSTİĞİ --- */
+        /* --- LIVE USER STATS WIDGET --- */
         .live-stats-widget {
             position: fixed; top: 90px; right: 5%;
             background: rgba(10, 10, 10, 0.85); border: 1px solid #333; border-left: 3px solid var(--red-neon);
@@ -448,56 +602,6 @@
         .rolling-num.out { top: -100%; }
         .stat-divider { width: 1px; height: 16px; background: #444; }
         .highlight-num { color: #fff; font-weight: 700; }
-
-        /* --- SOL ALT FON MÜZİĞİ KONTROL WIDGET'I --- */
-        .audio-control-widget {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(12, 12, 16, 0.9);
-            border: 1px solid var(--border-red);
-            border-left: 3px solid var(--red-neon);
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            z-index: 9998;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #fff;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.8), 0 0 15px rgba(255, 0, 60, 0.2);
-            user-select: none;
-        }
-        .audio-control-widget:hover {
-            border-color: var(--red-neon);
-            box-shadow: 0 0 25px var(--red-neon);
-            transform: translateY(-2px);
-        }
-        .audio-wave-anim {
-            display: inline-flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 12px;
-        }
-        .audio-bar {
-            width: 2px;
-            background: var(--red-neon);
-            border-radius: 1px;
-            height: 4px;
-            transition: height 0.2s;
-        }
-        .audio-playing .audio-bar:nth-child(1) { animation: soundBar 0.8s ease-in-out infinite alternate; }
-        .audio-playing .audio-bar:nth-child(2) { animation: soundBar 1.2s ease-in-out infinite alternate 0.2s; }
-        .audio-playing .audio-bar:nth-child(3) { animation: soundBar 0.9s ease-in-out infinite alternate 0.4s; }
-        @keyframes soundBar {
-            0% { height: 3px; }
-            100% { height: 12px; }
-        }
         
         @media (max-width: 768px) {
             .vip-banner { flex-direction: column; text-align: center; padding: 2rem; }
@@ -507,7 +611,8 @@
             .live-stats-widget { top: 80px; right: 5%; left: auto; padding: 6px 12px; gap: 10px; font-size: 0.8rem; }
             .toast-notification { bottom: 80px; left: 15px; right: 15px; justify-content: center; }
             .slider-frame-container { max-width: 100%; }
-            .audio-control-widget { bottom: 80px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+            .plugins-header-row { flex-direction: column; align-items: flex-start; }
+            .daw-support-dock { width: 100%; justify-content: space-between; }
         }
 
         footer { background: #000; text-align: center; padding: 3rem 5% 7rem 5%; border-top: 2px solid var(--red-dark); }
@@ -515,9 +620,6 @@
     </style>
 </head>
 <body>
-
-    <!-- ARKA PLAN FON MÜZİĞİ SES DOSYASI -->
-    <audio id="site-bg-music" loop src="bg-music.mp3" preload="auto"></audio>
 
     <div class="transition-flash"></div>
 
@@ -534,6 +636,7 @@
         </div>
         <nav>
             <a href="#store">Packs</a>
+            <a href="#plugins">Plugins</a>
             <a href="free-packs.html" class="nav-free-btn">Free Content</a>
             <a href="#store">Membership</a>
         </nav>
@@ -596,22 +699,27 @@
         </div>
     </section>
 
-    <section class="trust-section">
+    <!-- NEW PLUGIN INTEGRATION & WORKFLOW SECTION (REPLACED FAKE REVIEWS) -->
+    <section class="workflow-section">
         <div class="section-header reveal">
-            <h2>Industry <span>Trusted</span></h2>
+            <h2>Plugin <span>Architecture & Workflow</span></h2>
+            <p class="subhead">Engineered for surgical precision. Discover how to insert, shape, and push our DSP processors to their absolute limits in modern music production.</p>
         </div>
-        <div class="bubble-container reveal">
-            <div class="speech-bubble">
-                <p>"The drum loops are completely insane. Dropping these trap beats directly into my FL Studio workflow saved me hours of mixing. End-to-end fire."</p>
-                <h4>- Indie Hip-Hop Producer</h4>
+        <div class="workflow-grid reveal">
+            <div class="workflow-card">
+                <span class="step-tag">STEP 01 // ROUTING</span>
+                <h3>Surgical Bus Insertion</h3>
+                <p>Insert Heatwave directly into your Master Bus, Drum Group, or 808 Track. Built with 64-bit float internal processing, ensuring zero unwanted phase alignment issues or audible latency in your DAW mixer.</p>
             </div>
-            <div class="speech-bubble">
-                <p>"I needed high-quality sci-fi UI and ambience sounds for my latest Unity engine project. This pack delivered beyond expectations."</p>
-                <h4>- Lead Game Developer</h4>
+            <div class="workflow-card">
+                <span class="step-tag">STEP 02 // SATURATION</span>
+                <h3>Triple Stage Harmonic Drive</h3>
+                <p>Switch dynamically between Tape Warmth, Tube Distortion, and Digital Brickwall Clip. Blend the wet/dry signal via the MIX knob to infuse raw analog grit while preserving your track's original transient punch.</p>
             </div>
-            <div class="speech-bubble">
-                <p>"keNT's sound design is pristine. The frequencies sit perfectly in the mix without muddying the master track."</p>
-                <h4>- Studio Audio Engineer</h4>
+            <div class="workflow-card">
+                <span class="step-tag">STEP 03 // MONITORING</span>
+                <h3>Real-Time Oscilloscope Visualizer</h3>
+                <p>Monitor your waveform crest factor in real-time. Visually track hard-clipping thresholds and dynamic crest compression to hit competitive streaming loudness without sacrificing head-room.</p>
             </div>
         </div>
     </section>
@@ -639,13 +747,14 @@
         </div>
     </section>
 
+    <!-- SECTION 1: PACKS / ARSENAL -->
     <section id="store" class="store-section">
         <div class="section-header reveal">
             <h2>Premium <span>Arsenal</span></h2>
         </div>
 
         <div class="grid-container">
-            <!-- 1. KART: keNT ESSENTIALS -->
+            <!-- 1. CARD: keNT ESSENTIALS -->
             <div class="card reveal">
                 <div class="pack-cover bg-free">
                     <img src="a5a633dc-6bea-44ab-a52a-3fd4c5a1fcb0.png" alt="keNT Essentials New Logo">
@@ -691,14 +800,120 @@
                 </div>
             </div>
         </div>
+    </section>
 
+    <!-- SECTION 2: PLUGINS SECTION -->
+    <section id="plugins" class="store-section" style="margin-top: 5.5rem; padding-top: 4.5rem; border-top: 1px solid rgba(255, 0, 60, 0.25);">
+        
+        <div class="plugins-header-row reveal">
+            <h2 style="font-family: 'Oswald', sans-serif; font-size: 3rem; text-transform: uppercase; margin: 0;">Audio <span style="color: var(--red-neon);">Plugins & VST</span></h2>
+            
+            <!-- 5 BIG DAW LOGOS -->
+            <div class="daw-support-dock">
+                <span class="daw-dock-label">ALL DAWS SUPPORTED:</span>
+                <div class="daw-icons-group">
+                    <div class="daw-item" title="FL Studio Compatible">
+                        <svg class="daw-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 15 C52 5, 62 2, 68 5 C62 10, 58 18, 54 22 C68 20, 82 28, 85 45 C89 65, 75 88, 52 95 C38 99, 22 92, 16 78 C10 62, 14 42, 28 30 C36 22, 44 18, 50 15 Z" />
+                        </svg>
+                        <span class="daw-name">FL Studio</span>
+                    </div>
+
+                    <div class="daw-item" title="Ableton Live Compatible">
+                        <svg class="daw-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+                            <rect x="10" y="16" width="7" height="68" rx="2" />
+                            <rect x="23" y="16" width="7" height="68" rx="2" />
+                            <rect x="36" y="16" width="7" height="68" rx="2" />
+                            <rect x="49" y="16" width="7" height="68" rx="2" />
+                            <rect x="64" y="24" width="26" height="7" rx="2" />
+                            <rect x="64" y="41" width="26" height="7" rx="2" />
+                            <rect x="64" y="58" width="26" height="7" rx="2" />
+                            <rect x="64" y="75" width="26" height="7" rx="2" />
+                        </svg>
+                        <span class="daw-name">Ableton</span>
+                    </div>
+
+                    <div class="daw-item" title="Apple Logic Pro Compatible">
+                        <svg class="daw-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="6" stroke-dasharray="12 6" />
+                            <circle cx="50" cy="50" r="20" fill="currentColor" opacity="0.3" />
+                            <line x1="50" y1="20" x2="50" y2="40" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+                            <circle cx="50" cy="50" r="7" fill="currentColor" />
+                        </svg>
+                        <span class="daw-name">Logic Pro</span>
+                    </div>
+
+                    <div class="daw-item" title="Avid Pro Tools Compatible">
+                        <svg class="daw-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+                            <rect x="10" y="10" width="80" height="80" rx="16" fill="none" stroke="currentColor" stroke-width="6" />
+                            <line x1="28" y1="42" x2="28" y2="58" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                            <line x1="39" y1="30" x2="39" y2="70" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                            <line x1="50" y1="22" x2="50" y2="78" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                            <line x1="61" y1="30" x2="61" y2="70" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                            <line x1="72" y1="42" x2="72" y2="58" stroke="currentColor" stroke-width="5" stroke-linecap="round" />
+                        </svg>
+                        <span class="daw-name">Pro Tools</span>
+                    </div>
+
+                    <div class="daw-item" title="PreSonus Studio One Compatible">
+                        <svg class="daw-logo-svg" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="6" />
+                            <path d="M 34 38 C 34 26, 66 26, 66 38 C 66 50, 34 50, 34 62 C 34 74, 66 74, 66 62" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" />
+                        </svg>
+                        <span class="daw-name">Studio One</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 800px; margin-bottom: 3rem; text-align: left;" class="reveal">Engineered for extreme punch, analog warmth, and brickwall presence. Our in-house audio plugins bring professional sound design straight to your DAW.</p>
+
+        <div class="grid-container">
+            <!-- 1. CARD: HEATWAVE -->
+            <div class="card reveal">
+                <div class="pack-cover">
+                    <div class="vst-cover-anim">
+                        <img src="heatwave-clip.png" alt="Heatwave Hard Clip Mode">
+                        <img src="heatwave-tube.png" alt="Heatwave Tube Saturation Mode">
+                        <img src="heatwave-tape.png" alt="Heatwave Tape Warmth Mode">
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">VST3 • 64-Bit Plugin</div>
+                    <h3>Heatwave Distortion & Clipper</h3>
+                    <p>A hybrid distortion engine and multi-stage hard clipper designed for aggressive 808s, punching kicks, vocals, and synths. Switch between Tape, Tube, and digital Clip modes with real-time waveform monitoring.</p>
+                    <div class="price-row">
+                        <span class="price"><span>$39.99</span>FREE RELEASE</span>
+                        <a href="download-heatwave.html" class="cyber-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem; display: inline-block; text-decoration: none;">⚡ Download VST3</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. CARD: UPCOMING VST -->
+            <div class="card reveal" style="opacity: 0.7; border-style: dashed;">
+                <div class="pack-cover" style="background: #08080c;">
+                    <h3 style="font-family: 'Oswald', sans-serif; font-size: 2rem; color: #555; letter-spacing: 2px;">[ COMING SOON ]</h3>
+                </div>
+                <div class="card-content">
+                    <div class="card-category" style="color: #666;">Virtual Instrument / Synth</div>
+                    <h3 style="color: #888;">keNT Atmospheric Synth</h3>
+                    <p style="color: #555;">Next-generation cyberpunk soundscape generator and wavetable synthesizer currently being forged in our audio laboratory.</p>
+                    <div class="price-row">
+                        <span class="price" style="color: #666;">TBA</span>
+                        <button class="cyber-btn" style="padding: 0.5rem 1rem; font-size: 1rem; background: #1a1a1a; color: #555; border-color: #333; cursor: not-allowed;" disabled>In Development</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UPDATED VIP BANNER ($2.99 MONTHLY & COMING SOON) -->
         <div class="vip-banner reveal">
             <div class="vip-info">
                 <h2>THE MASTER VAULT <span>[VIP]</span></h2>
-                <p>Unlock every single sound. Get unlimited downloads to all current loop packs, game audio files, and all future drops. Become an elite producer and arm your studio with the ultimate arsenal.</p>
-                <div class="price-row" style="border: none; padding: 0; justify-content: flex-start; gap: 2rem;">
-                    <span class="price" style="font-size: 2.5rem;">$29.99<span style="font-size: 1.2rem; color: #b3b3b3;">/mo</span></span>
-                    <button class="cyber-btn" style="background: var(--red-neon); color: black;">Subscribe Now</button>
+                <p>Unlock every single sound. Get unlimited downloads to all current loop packs, game audio files, custom VST tools, and all future drops. Become an elite producer and arm your studio with the ultimate arsenal.</p>
+                <div class="price-row" style="border: none; padding: 0; justify-content: flex-start; align-items: center; gap: 2rem;">
+                    <span class="price" style="font-size: 2.6rem;">$2.99<span style="font-size: 1.1rem; color: #b3b3b3;">/MONTHLY</span></span>
+                    <span class="vault-status-badge">● COMING SOON</span>
                 </div>
             </div>
             <div class="vip-visual">
@@ -724,13 +939,13 @@
         </div>
     </section>
 
-    <!-- SAĞ ALT POP-UP BİLDİRİMİ -->
+    <!-- TOAST NOTIFICATION -->
     <div id="toast-notification" class="toast-notification">
         <div class="toast-icon">✓</div>
-        <div class="toast-text">U SUCCESSFULLY SUBSCRIBED TO OUR NEWS SYSTEM</div>
+        <div class="toast-text">YOU HAVE SUCCESSFULLY SUBSCRIBED</div>
     </div>
 
-    <!-- SAĞ ÜST CANLI İSTATİSTİK WIDGET'I -->
+    <!-- LIVE USER STATS WIDGET -->
     <div class="live-stats-widget">
         <div class="stat-item">
             <div class="pulsing-dot"></div>
@@ -747,83 +962,14 @@
         </div>
     </div>
 
-    <!-- SOL ALT FON MÜZİĞİ KONTROL WIDGET'I -->
-    <div class="audio-control-widget" id="audio-toggle-widget" title="Müziği Durdur / Başlat">
-        <div class="audio-wave-anim" id="audio-wave">
-            <span class="audio-bar"></span>
-            <span class="audio-bar"></span>
-            <span class="audio-bar"></span>
-        </div>
-        <span id="audio-widget-text">BGM: 25%</span>
-    </div>
-
     <footer>
         <p>&copy; 2026 keNT SOUND DESIGN. Forged in Fire. All rights reserved.</p>
-        <p style="font-size: 0.65rem; color: #333333; margin-top: 8px; letter-spacing: 1.5px;">KOVALA İSTEDİYSEN KOLAY SON.</p>
+        <p style="font-size: 0.65rem; color: #444444; margin-top: 8px; letter-spacing: 1.5px;">RELENTLESS PURSUIT. ZERO COMPROMISE.</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- FON MÜZİĞİ YÖNETİMİ (%25 SES SEVİYESİ & AUTOPLAY DESTEĞİ) ---
-            const bgMusic = document.getElementById('site-bg-music');
-            const musicWidget = document.getElementById('audio-toggle-widget');
-            const musicText = document.getElementById('audio-widget-text');
-            const audioWave = document.getElementById('audio-wave');
-
-            if (bgMusic) {
-                bgMusic.volume = 0.25; // %25 ses seviyesi
-
-                const setPlayingState = (isPlaying) => {
-                    if (isPlaying) {
-                        musicText.textContent = 'BGM: 25%';
-                        audioWave.classList.add('audio-playing');
-                        musicWidget.style.borderColor = 'var(--red-neon)';
-                    } else {
-                        musicText.textContent = 'BGM: OFF';
-                        audioWave.classList.remove('audio-playing');
-                        musicWidget.style.borderColor = '#444';
-                    }
-                };
-
-                const tryAutoplay = () => {
-                    bgMusic.play().then(() => {
-                        setPlayingState(true);
-                    }).catch(() => {
-                        setPlayingState(false);
-                    });
-                };
-
-                tryAutoplay();
-
-                // Tarayıcı autoplay'e izin vermezse sayfadaki ilk etkileşimde başlat
-                const onFirstInteraction = () => {
-                    if (bgMusic.paused && !bgMusic.dataset.manuallyPaused) {
-                        bgMusic.play().then(() => {
-                            setPlayingState(true);
-                        }).catch(() => {});
-                    }
-                    document.removeEventListener('click', onFirstInteraction);
-                    document.removeEventListener('keydown', onFirstInteraction);
-                };
-                document.addEventListener('click', onFirstInteraction);
-                document.addEventListener('keydown', onFirstInteraction);
-
-                if (musicWidget) {
-                    musicWidget.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (bgMusic.paused) {
-                            bgMusic.dataset.manuallyPaused = '';
-                            bgMusic.play().then(() => setPlayingState(true));
-                        } else {
-                            bgMusic.dataset.manuallyPaused = 'true';
-                            bgMusic.pause();
-                            setPlayingState(false);
-                        }
-                    });
-                }
-            }
-
-            // Scroll animasyonu
+            // Scroll Animation Observer
             const reveals = document.querySelectorAll(".reveal");
             const revealOnScroll = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -834,7 +980,7 @@
             }, { threshold: 0.15 });
             reveals.forEach(reveal => revealOnScroll.observe(reveal));
 
-            // Vault Butonu Warp Efekti
+            // Vault Button Warp Effect
             const vaultBtn = document.getElementById("vault-btn");
             const flash = document.querySelector(".transition-flash");
             const hero = document.querySelector(".hero");
@@ -853,7 +999,7 @@
                 });
             }
 
-            // SIFIR YÖNLENDİRMELİ ABONELİK SİSTEMİ
+            // FormSubmit AJAX Subscription
             const newsletterForm = document.getElementById("newsletter-form");
             const toast = document.getElementById("toast-notification");
 
@@ -873,13 +1019,13 @@
                         body: JSON.stringify({
                             _subject: "New Subscriber: keNT Sound Design Reminder Service!",
                             Subscriber_Email: emailValue,
-                            Message: "Bu kisi sitenin hatirlatma hizmetine uye oldu: " + emailValue
+                            Message: "New user subscribed to keNT Sound Design: " + emailValue
                         })
                     }).catch(err => console.log(err));
                 });
             }
 
-            // CANLI KULLANICI DÖNGÜSÜ
+            // Live Users Counter Sequence
             const liveSequence = [3,4,5,4,6,5,4,3,2,4,6,7,5,4,3,2,6,4,7,8,7,6,5,6,5,3,4,5,3,2];
             const intervalMs = 30 * 60 * 1000; 
 
@@ -919,7 +1065,7 @@
 
             updateLiveUsers();
 
-            // SLIDER DÖNGÜSÜ (5 SANİYE)
+            // Interactive Image Slider Carousel (5s Auto Loop)
             const slides = document.querySelectorAll('.slider-wrapper .slide');
             const dots = document.querySelectorAll('.dot-indicator');
             const prevBtn = document.getElementById('slider-prev');
@@ -930,7 +1076,7 @@
             function showSlide(index) {
                 slides.forEach((s, i) => {
                     s.classList.toggle('active', i === index);
-                });9
+                });
                 dots.forEach((d, i) => {
                     d.classList.toggle('active', i === index);
                 });

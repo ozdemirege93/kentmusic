@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Heatwave VST3 | keNT SOUND DESIGN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-darker: #000000;
+            --red-neon: #ff003c;
+            --red-dark: #8a0000;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-red: rgba(255, 0, 60, 0.3);
+            --green-active: #22c55e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; background: #000;
+        }
+        .video-background video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.45; filter: grayscale(20%) contrast(120%);
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .site-logo { height: 50px; filter: drop-shadow(0 0 8px var(--red-neon)); }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
+
+        /* --- PARLAYAN ÖZEL FREE CONTENT MENÜ BUTONU --- */
+        nav a.nav-free-btn {
+            background: rgba(255, 0, 60, 0.15);
+            color: #ffffff;
+            border: 1px solid var(--red-neon);
+            padding: 0.45rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4), inset 0 0 10px rgba(255, 0, 60, 0.2);
+            text-shadow: 0 0 8px var(--red-neon);
+            transition: all 0.3s ease;
+            animation: pulseNavGlow 2.5s infinite;
+        }
+        nav a.nav-free-btn:hover {
+            background: var(--red-neon);
+            color: #000000;
+            box-shadow: 0 0 25px var(--red-neon), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            text-shadow: none;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @keyframes pulseNavGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+            50% { box-shadow: 0 0 22px rgba(255, 0, 60, 0.7), inset 0 0 14px rgba(255, 0, 60, 0.35); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+        }
+
+        /* --- MAIN CONTENT CARD CONTAINER --- */
+        .download-wrapper {
+            padding: 9rem 1.5rem 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .download-card {
+            background: linear-gradient(160deg, rgba(16,16,22,0.96), rgba(5,5,8,0.98));
+            border: 1px solid var(--border-red);
+            border-radius: 16px;
+            max-width: 1050px;
+            width: 100%;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 0, 60, 0.25);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red-neon), transparent);
+        }
+
+        /* LEFT SIDE PREVIEW (CROSSFADING 3 UI IMAGES) */
+        .pack-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255,0,60,0.08) 0%, rgba(0,0,0,0.85) 85%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            min-height: 380px;
+            overflow: hidden;
+        }
+
+        .vst-slider-viewport {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vst-slider-viewport img {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
+            opacity: 0;
+            animation: vstCrossFadeDetail 9s infinite ease-in-out;
+        }
+        .vst-slider-viewport img:nth-child(1) { animation-delay: 0s; }
+        .vst-slider-viewport img:nth-child(2) { animation-delay: 3s; }
+        .vst-slider-viewport img:nth-child(3) { animation-delay: 6s; }
+
+        @keyframes vstCrossFadeDetail {
+            0% { opacity: 0; transform: scale(0.97); }
+            10% { opacity: 1; transform: scale(1); }
+            33% { opacity: 1; transform: scale(1); }
+            43% { opacity: 0; transform: scale(1.02); }
+            100% { opacity: 0; }
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: rgba(255, 0, 60, 0.2);
+            border: 1px solid var(--red-neon);
+            color: var(--red-neon);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 5;
+        }
+
+        .mode-indicator-pills {
+            display: flex;
+            gap: 8px;
+            margin-top: 1rem;
+            z-index: 5;
+        }
+        .mode-pill {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+        .mode-pill.clip { border-color: #22c55e; color: #22c55e; }
+        .mode-pill.tube { border-color: #ff003c; color: #ff003c; }
+        .mode-pill.tape { border-color: #eab308; color: #eab308; }
+
+        /* RIGHT SIDE DETAILS */
+        .pack-details-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pack-details-box h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 0.6rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255,0,60,0.4);
+        }
+
+        .pack-details-box p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 0.8rem 0;
+        }
+
+        .specs-list li {
+            font-size: 0.88rem;
+            color: #ddd;
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .specs-list li span {
+            color: var(--red-neon);
+            font-weight: bold;
+        }
+
+        .install-guide-box {
+            background: rgba(10, 10, 14, 0.8);
+            border: 1px solid #282833;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .install-guide-box strong { color: #fff; font-family: 'Oswald', sans-serif; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        .install-guide-box code { color: #ff003c; background: rgba(255,0,60,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.75rem; }
+
+        /* TRIGGER BUTTON */
+        .cyber-btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--red-neon);
+            color: #000;
+            border: 1px solid var(--red-neon);
+            padding: 1.1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+            cursor: pointer;
+        }
+
+        .cyber-btn-download:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .back-link:hover { color: var(--red-neon); }
+
+        /* --- SİBER ONAY MODAL'I --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+        }
+
+        .modal-box {
+            background: linear-gradient(145deg, #14141c, #09090d);
+            border: 1px solid var(--red-neon);
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            padding: 2.2rem;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 35px rgba(255, 0, 60, 0.35);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-box h3 span {
+            color: var(--red-neon);
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .modal-btn-confirm {
+            background: var(--red-neon);
+            border: 1px solid var(--red-neon);
+            color: #000;
+            font-weight: 700;
+        }
+        .modal-btn-confirm:hover {
+            background: #fff;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.7);
+        }
+
+        .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: #666;
+        }
+
+        footer { background: #000; text-align: center; padding: 2rem 5%; border-top: 1px solid #1a1a1a; }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .download-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+            .pack-details-box h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Space and Nebula 2 (Stock Video).mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Fire Logo" class="site-logo"></a>
+        </div>
+        <nav>
+            <a href="index.html#store">Packs</a>
+            <a href="index.html#plugins">Plugins</a>
+            <a href="free-packs.html" class="nav-free-btn">Free Content</a>
+            <a href="index.html#store">Membership</a>
+        </nav>
+    </header>
+
+    <main class="download-wrapper">
+        <div class="download-card">
+            
+            <!-- LEFT: ROTATING 3 MODES SCREENSHOTS -->
+            <div class="pack-preview-box">
+                <span class="badge-tag">100% Free VST3</span>
+                
+                <div class="vst-slider-viewport">
+                    <img src="heatwave-clip.png" alt="Heatwave Hard Clip Mode">
+                    <img src="heatwave-tube.png" alt="Heatwave Tube Saturation Mode">
+                    <img src="heatwave-tape.png" alt="Heatwave Tape Warmth Mode">
+                </div>
+
+                <div class="mode-indicator-pills">
+                    <span class="mode-pill clip">● Hard Clip</span>
+                    <span class="mode-pill tube">● Tube Saturation</span>
+                    <span class="mode-pill tape">● Analog Tape</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: DETAILS & DOWNLOAD -->
+            <div class="pack-details-box">
+                <h1>Heatwave Distortion & Clipper</h1>
+                <p>A hybrid distortion engine and multi-stage hard clipper designed to give your 808s brutal low-end presence, make kicks punch through any mix, and add harmonic character to synths and vocals.</p>
+                
+                <ul class="specs-list">
+                    <li><span>✓</span> Format: 64-Bit VST3 (Universal Audio Plugin)</li>
+                    <li><span>✓</span> Architecture: Multi-Stage Hybrid Distortion & Brickwall Clipper</li>
+                    <li><span>✓</span> Algorithms: Tape Warmth, Tube Saturation & Digital Hard Clip</li>
+                    <li><span>✓</span> Real-Time Visualizer: Zero-Latency Waveform Oscilloscope</li>
+                    <li><span>✓</span> Compatibility: FL Studio, Ableton, Logic, Pro Tools, Studio One, Reaper</li>
+                </ul>
+
+                <div class="install-guide-box">
+                    <strong>QUICK INSTALL GUIDE:</strong>
+                    Extract the ZIP and place <code>Heatwave.vst3</code> into your VST folder:<br>
+                    • Windows: <code>C:\Program Files\Common Files\VST3\</code><br>
+                    • Rescan plugins in your DAW settings.
+                </div>
+
+                <!-- DIRECT DOWNLOAD TRIGGER (MODALI AÇAR) -->
+                <button type="button" class="cyber-btn-download" id="open-confirm-modal">
+                    ⚡ DOWNLOAD VST3 (.ZIP)
+                </button>
+
+                <a href="index.html#plugins" class="back-link">← Back to Audio Plugins</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ONAY MODAL'I -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>CONFIRM <span>DOWNLOAD</span></h3>
+            <p><strong>Heatwave VST3 (Distortion & Clipper)</strong> eklenti arşivini bilgisayarınıza indirmek istediğinizden emin misiniz?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-cancel" id="btn-cancel">İptal</button>
+                <button type="button" class="modal-btn modal-btn-confirm" id="btn-confirm">Evet, İndir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GİZLİ İNDİRME TETİKLEYİCİSİ -->
+    <a id="hidden-download-link" href="Heatwave_VST3.zip" download="Heatwave_VST3.zip" style="display: none;"></a>
+
+    <footer>
+        <p>&copy; 2026 keNT SOUND DESIGN. Forged in Fire. All rights reserved.</p>
+        <p style="font-size: 0.65rem; color: #333333; margin-top: 8px; letter-spacing: 1.5px;">KOVALA İSTEDİYSEN KOLAY SON.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openBtn = document.getElementById('open-confirm-modal');
+            const modal = document.getElementById('confirm-modal');
+            const cancelBtn = document.getElementById('btn-cancel');
+            const confirmBtn = document.getElementById('btn-confirm');
+            const hiddenDownload = document.getElementById('hidden-download-link');
+
+            // İndir butonuna basınca modalı aç
+            openBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+
+            // İptal butonuna basınca modalı kapat
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Dışarı tıklayınca modalı kapat
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Evet, İndir onaylandığında indirmeyi tetikle
+            confirmBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                hiddenDownload.click();
+
+                openBtn.innerHTML = '⚡ DOWNLOADING...';
+                openBtn.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    openBtn.innerHTML = '✓ STARTED SUCCESSFULLY';
+                    openBtn.style.background = '#22c55e';
+                    openBtn.style.borderColor = '#22c55e';
+                    openBtn.style.color = '#000';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
