@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download E.Z REVERB JOKER VST3 | keNT SOUND DESIGN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-darker: #000000;
+            --red-neon: #ff003c;
+            --red-dark: #8a0000;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-red: rgba(255, 0, 60, 0.3);
+            --joker-purple: #9d4edd;
+            --joker-green: #22c55e;
+            --joker-gold: #ffbe0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; background: #000;
+        }
+        .video-background video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.45; filter: grayscale(20%) contrast(120%);
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-red);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .site-logo { height: 50px; filter: drop-shadow(0 0 8px var(--red-neon)); }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--red-neon); text-shadow: 0 0 10px var(--red-neon); }
+
+        nav a.nav-free-btn {
+            background: rgba(255, 0, 60, 0.15);
+            color: #ffffff;
+            border: 1px solid var(--red-neon);
+            padding: 0.45rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4), inset 0 0 10px rgba(255, 0, 60, 0.2);
+            text-shadow: 0 0 8px var(--red-neon);
+            transition: all 0.3s ease;
+            animation: pulseNavGlow 2.5s infinite;
+        }
+        nav a.nav-free-btn:hover {
+            background: var(--red-neon);
+            color: #000000;
+            box-shadow: 0 0 25px var(--red-neon), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            text-shadow: none;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @keyframes pulseNavGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+            50% { box-shadow: 0 0 22px rgba(255, 0, 60, 0.7), inset 0 0 14px rgba(255, 0, 60, 0.35); }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 8px rgba(255, 0, 60, 0.15); }
+        }
+
+        /* --- MAIN CARD CONTAINER --- */
+        .download-wrapper {
+            padding: 9rem 1.5rem 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .download-card {
+            background: linear-gradient(160deg, rgba(18,14,24,0.96), rgba(6,6,10,0.98));
+            border: 1px solid rgba(157, 78, 221, 0.4);
+            border-radius: 16px;
+            max-width: 1100px;
+            width: 100%;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(157, 78, 221, 0.25);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--joker-purple), var(--red-neon), transparent);
+        }
+
+        /* LEFT SIDE: VIDEO SHOWCASE FRAME */
+        .pack-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(157,78,221,0.12) 0%, rgba(0,0,0,0.9) 85%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+            position: relative;
+            min-height: 440px;
+            overflow: hidden;
+        }
+
+        .video-player-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            box-shadow: 0 0 25px rgba(0,0,0,0.8), inset 0 0 15px rgba(157, 78, 221, 0.15);
+            background: #000;
+        }
+
+        .video-player-container video {
+            width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: rgba(157, 78, 221, 0.25);
+            border: 1px solid var(--joker-purple);
+            color: #d8b4fe;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.85rem;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            z-index: 5;
+            box-shadow: 0 0 12px rgba(157, 78, 221, 0.4);
+        }
+
+        .arcade-engine-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 0.8rem;
+            justify-content: center;
+        }
+        .arcade-pill {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #333;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+        .arcade-pill.highlight { border-color: var(--joker-purple); color: #d8b4fe; }
+
+        /* RIGHT SIDE DETAILS */
+        .pack-details-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pack-details-box h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 0.6rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(157,78,221,0.5);
+        }
+
+        .pack-details-box p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #282832;
+            border-bottom: 1px solid #282832;
+            padding: 0.8rem 0;
+        }
+
+        .specs-list li {
+            font-size: 0.88rem;
+            color: #ddd;
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .specs-list li span {
+            color: var(--joker-green);
+            font-weight: bold;
+        }
+
+        .install-guide-box {
+            background: rgba(12, 10, 16, 0.85);
+            border: 1px solid #36294a;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .install-guide-box strong { color: #fff; font-family: 'Oswald', sans-serif; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        .install-guide-box code { color: #d8b4fe; background: rgba(157,78,221,0.15); padding: 1px 4px; border-radius: 3px; font-size: 0.75rem; }
+
+        /* DIRECT DOWNLOAD TRIGGER */
+        .cyber-btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--joker-purple);
+            color: #ffffff;
+            border: 1px solid var(--joker-purple);
+            padding: 1.1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 25px rgba(157, 78, 221, 0.5);
+            cursor: pointer;
+        }
+
+        .cyber-btn-download:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .back-link:hover { color: var(--joker-purple); }
+
+        /* --- CONFIRMATION MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+        }
+
+        .modal-box {
+            background: linear-gradient(145deg, #15101d, #09060e);
+            border: 1px solid var(--joker-purple);
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            padding: 2.2rem;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 35px rgba(157, 78, 221, 0.35);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+        .modal-box h3 span { color: var(--joker-purple); }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .modal-btn-confirm {
+            background: var(--joker-purple);
+            border: 1px solid var(--joker-purple);
+            color: #fff;
+            font-weight: 700;
+        }
+        .modal-btn-confirm:hover {
+            background: #fff;
+            border-color: #fff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.7);
+        }
+
+        .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: #666;
+        }
+
+        footer { background: #000; text-align: center; padding: 2rem 5%; border-top: 1px solid #1a1a1a; }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .download-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+            .pack-details-box h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Space and Nebula 2 (Stock Video).mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Fire Logo" class="site-logo"></a>
+        </div>
+        <nav>
+            <a href="index.html#store">Packs</a>
+            <a href="index.html#plugins">Plugins</a>
+            <a href="free-packs.html" class="nav-free-btn">Free Content</a>
+            <a href="index.html#store">Membership</a>
+        </nav>
+    </header>
+
+    <main class="download-wrapper">
+        <div class="download-card">
+            
+            <!-- LEFT: RETRO ARCADE VIDEO PREVIEW -->
+            <div class="pack-preview-box">
+                <span class="badge-tag">100% Free VST3</span>
+                
+                <div class="video-player-container">
+                    <video autoplay loop muted playsinline controls>
+                        <source src="ez-reverb-showcase.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div class="arcade-engine-bar">
+                    <span class="arcade-pill">Lo-Fi Mono</span>
+                    <span class="arcade-pill">Retro Spring</span>
+                    <span class="arcade-pill">Warm Chamber</span>
+                    <span class="arcade-pill highlight">Studio Plate</span>
+                    <span class="arcade-pill">Lush Hall</span>
+                    <span class="arcade-pill highlight">Infinity Space</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: DETAILS & DOWNLOAD -->
+            <div class="pack-details-box">
+                <h1>E.Z REVERB JOKER</h1>
+                <p>Engineered to deliver unmatched spatial richness through a radically intuitive interface. Standing out with its distinctive arcade visual identity and uncompromising sonic precision, E.Z REVERB JOKER is hands down the most versatile and character-rich reverb plugin for modern producers who demand instant acoustic depth without tedious menu diving.</p>
+                
+                <ul class="specs-list">
+                    <li><span>✓</span> Format: 64-Bit VST3 (Native Audio Plugin)</li>
+                    <li><span>✓</span> 6 Discrete Algorithms: Lo-Fi, Spring, Chamber, Plate, Hall & Infinite Space</li>
+                    <li><span>✓</span> Integrated 3-Band Spectral EQ: Lows, Mids, Highs (-12dB to +12dB)</li>
+                    <li><span>✓</span> Creative Modifiers: Instant Freeze Mode & Chain Routing Switches</li>
+                    <li><span>✓</span> DAW Compatibility: FL Studio, Ableton, Logic, Pro Tools, Studio One, Reaper</li>
+                </ul>
+
+                <div class="install-guide-box">
+                    <strong>QUICK INSTALL GUIDE:</strong>
+                    Extract the ZIP file and move <code>Reverb.vst3</code> into your system VST3 directory:<br>
+                    • Windows: <code>C:\Program Files\Common Files\VST3\</code><br>
+                    • Rescan audio plugins inside your DAW mixer settings.
+                </div>
+
+                <!-- DIRECT DOWNLOAD TRIGGER -->
+                <button type="button" class="cyber-btn-download" id="open-confirm-modal">
+                    ⚡ DOWNLOAD VST3 (.ZIP)
+                </button>
+
+                <a href="index.html#plugins" class="back-link">← Back to Audio Plugins</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>CONFIRM <span>DOWNLOAD</span></h3>
+            <p>Are you sure you want to download the <strong>E.Z REVERB JOKER VST3</strong> audio plugin package to your computer?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-cancel" id="btn-cancel">Cancel</button>
+                <button type="button" class="modal-btn modal-btn-confirm" id="btn-confirm">Yes, Download</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HIDDEN DOWNLOAD TRIGGER (POINTING TO Reverb_VST3.zip) -->
+    <a id="hidden-download-link" href="Reverb_VST3.zip" download="Reverb_VST3.zip" style="display: none;"></a>
+
+    <footer>
+        <p>&copy; 2026 keNT SOUND DESIGN. Forged in Fire. All rights reserved.</p>
+        <p style="font-size: 0.65rem; color: #444444; margin-top: 8px; letter-spacing: 1.5px;">RELENTLESS PURSUIT. ZERO COMPROMISE.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openBtn = document.getElementById('open-confirm-modal');
+            const modal = document.getElementById('confirm-modal');
+            const cancelBtn = document.getElementById('btn-cancel');
+            const confirmBtn = document.getElementById('btn-confirm');
+            const hiddenDownload = document.getElementById('hidden-download-link');
+
+            openBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            confirmBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                hiddenDownload.click();
+
+                openBtn.innerHTML = '⚡ DOWNLOADING...';
+                openBtn.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    openBtn.innerHTML = '✓ STARTED SUCCESSFULLY';
+                    openBtn.style.background = '#22c55e';
+                    openBtn.style.borderColor = '#22c55e';
+                    openBtn.style.color = '#000';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
