@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Grain Glitch VST3 | keNT MUSIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-darker: #000000;
+            --red-neon: #ff003c;
+            --cyan-neon: #00f0ff;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-cyan: rgba(0, 240, 255, 0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
+        .video-background {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden; background: #000;
+        }
+        .video-background video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.45; filter: grayscale(20%) contrast(120%);
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-cyan);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .site-logo { height: 50px; filter: drop-shadow(0 0 8px var(--cyan-neon)); }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: var(--text-main); text-decoration: none; margin-left: 2rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        nav a:hover { color: var(--cyan-neon); text-shadow: 0 0 10px var(--cyan-neon); }
+
+        nav a.nav-free-btn {
+            background: rgba(0, 240, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid var(--cyan-neon);
+            padding: 0.45rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.2);
+            text-shadow: 0 0 8px var(--cyan-neon);
+            transition: all 0.3s ease;
+        }
+        nav a.nav-free-btn:hover {
+            background: var(--cyan-neon);
+            color: #000000;
+            box-shadow: 0 0 25px var(--cyan-neon);
+            transform: translateY(-2px) scale(1.04);
+        }
+
+        /* --- MAIN CARD --- */
+        .download-wrapper {
+            padding: 9rem 1.5rem 4rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .download-card {
+            background: linear-gradient(160deg, rgba(10, 18, 24, 0.96), rgba(5, 7, 10, 0.98));
+            border: 1px solid var(--border-cyan);
+            border-radius: 16px;
+            max-width: 1050px;
+            width: 100%;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 240, 255, 0.25);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan-neon), var(--red-neon), transparent);
+        }
+
+        /* LEFT SIDE PREVIEW */
+        .pack-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0,0,0,0.85) 85%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            min-height: 380px;
+            text-align: center;
+        }
+
+        .glitch-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 2px 2px var(--cyan-neon), -2px -2px var(--red-neon);
+            animation: pulseGlow 2.5s infinite;
+        }
+
+        .glitch-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--cyan-neon);
+            margin-top: 0.5rem;
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: rgba(0, 240, 255, 0.2);
+            border: 1px solid var(--cyan-neon);
+            color: var(--cyan-neon);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* RIGHT SIDE DETAILS */
+        .pack-details-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pack-details-box h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 0.6rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .pack-details-box p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 0.8rem 0;
+        }
+
+        .specs-list li {
+            font-size: 0.88rem;
+            color: #ddd;
+            margin-bottom: 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .specs-list li span {
+            color: var(--cyan-neon);
+            font-weight: bold;
+        }
+
+        .install-guide-box {
+            background: rgba(8, 14, 18, 0.8);
+            border: 1px solid #1f3644;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .install-guide-box strong { color: #fff; font-family: 'Oswald', sans-serif; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+        .install-guide-box code { color: var(--cyan-neon); background: rgba(0,240,255,0.1); padding: 1px 4px; border-radius: 3px; font-size: 0.75rem; }
+
+        /* DIRECT DOWNLOAD TRIGGER */
+        .cyber-btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--cyan-neon);
+            color: #000;
+            border: 1px solid var(--cyan-neon);
+            padding: 1.1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .cyber-btn-download:hover {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .back-link:hover { color: var(--cyan-neon); }
+
+        /* CONFIRMATION MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1rem;
+        }
+
+        .modal-box {
+            background: linear-gradient(145deg, #0d161d, #05080c);
+            border: 1px solid var(--cyan-neon);
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            padding: 2.2rem;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 35px rgba(0, 240, 255, 0.35);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-box h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+        .modal-box h3 span { color: var(--cyan-neon); }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .modal-btn-confirm {
+            background: var(--cyan-neon);
+            border: 1px solid var(--cyan-neon);
+            color: #000;
+            font-weight: 700;
+        }
+        .modal-btn-confirm:hover {
+            background: #fff;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.7);
+        }
+
+        .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: #666;
+        }
+
+        footer { background: #000; text-align: center; padding: 2rem 5%; border-top: 1px solid #1a1a1a; }
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .download-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+            .pack-details-box h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="Space and Nebula 2 (Stock Video).mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="c2bebad1-342b-4818-b7b1-8a2ea4c26b58.png" alt="keNT Fire Logo" class="site-logo"></a>
+        </div>
+        <nav>
+            <a href="index.html#store">Packs</a>
+            <a href="index.html#plugins">Plugins</a>
+            <a href="free-packs.html" class="nav-free-btn">Free Content</a>
+            <a href="index.html#store">Membership</a>
+        </nav>
+    </header>
+
+    <main class="download-wrapper">
+        <div class="download-card">
+            
+            <div class="pack-preview-box">
+                <span class="badge-tag">100% Free VST3</span>
+                <div class="glitch-title">GRAIN<br>GLITCH</div>
+                <div class="glitch-subtitle">// GRANULAR STUTTER ENGINE</div>
+            </div>
+
+            <div class="pack-details-box">
+                <h1>Grain Glitch VST3</h1>
+                <p>A real-time granular buffer stutter and digital deconstruction processor. Engineered to transform stale loops, 808s, synths, and vocals into glitchy IDM textures, micro-loop pitch shifts, and rhythmic chaotic cascades with surgical timing accuracy.</p>
+                
+                <ul class="specs-list">
+                    <li><span>✓</span> Format: 64-Bit VST3 (Native Audio Plugin)</li>
+                    <li><span>✓</span> Architecture: High-Density Micro-Granular Buffer Engine</li>
+                    <li><span>✓</span> Creative FX: Real-Time Buffer Freeze, Chaos Jitter & Pitch Shift</li>
+                    <li><span>✓</span> Routing: Low-CPU Overhead, Zero Phase Distortion</li>
+                    <li><span>✓</span> DAW Compatibility: FL Studio, Ableton, Logic, Pro Tools, Studio One, Reaper</li>
+                </ul>
+
+                <div class="install-guide-box">
+                    <strong>QUICK INSTALL GUIDE:</strong>
+                    Extract the ZIP file and move <code>GrainGlitch.vst3</code> into your system VST3 directory:<br>
+                    • Windows: <code>C:\Program Files\Common Files\VST3\</code><br>
+                    • Rescan plugins in your DAW mixer settings.
+                </div>
+
+                <button type="button" class="cyber-btn-download" id="open-confirm-modal">
+                    ⚡ DOWNLOAD VST3 (.ZIP)
+                </button>
+
+                <a href="index.html#plugins" class="back-link">← Back to Audio Plugins</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>CONFIRM <span>DOWNLOAD</span></h3>
+            <p>Are you sure you want to download the <strong>Grain Glitch VST3</strong> plugin archive to your computer?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-cancel" id="btn-cancel">Cancel</button>
+                <button type="button" class="modal-btn modal-btn-confirm" id="btn-confirm">Yes, Download</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HIDDEN DOWNLOAD TRIGGER -->
+    <a id="hidden-download-link" href="GrainGlitch_VST3.zip" download="GrainGlitch_VST3.zip" style="display: none;"></a>
+
+    <footer>
+        <p>&copy; 2026 keNT SOUND DESIGN. Forged in Fire. All rights reserved.</p>
+        <p style="font-size: 0.65rem; color: #444444; margin-top: 8px; letter-spacing: 1.5px;">RELENTLESS PURSUIT. ZERO COMPROMISE.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const openBtn = document.getElementById('open-confirm-modal');
+            const modal = document.getElementById('confirm-modal');
+            const cancelBtn = document.getElementById('btn-cancel');
+            const confirmBtn = document.getElementById('btn-confirm');
+            const hiddenDownload = document.getElementById('hidden-download-link');
+
+            openBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            confirmBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                hiddenDownload.click();
+
+                openBtn.innerHTML = '⚡ DOWNLOADING...';
+                openBtn.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    openBtn.innerHTML = '✓ STARTED SUCCESSFULLY';
+                    openBtn.style.background = '#22c55e';
+                    openBtn.style.borderColor = '#22c55e';
+                    openBtn.style.color = '#000';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

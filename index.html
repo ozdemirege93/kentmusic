@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>keNT MUSIC | Industry Standard Plugins/Game Sounds</title>
+    <title>keNT MUSIC | INDUSTRY STANDARD PLUGINS</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
     
     <style>
@@ -22,14 +22,14 @@
         html { scroll-behavior: smooth; }
         body { background-color: var(--bg-darker); color: var(--text-main); font-family: 'Poppins', sans-serif; overflow-x: hidden; }
 
-        /* --- LOCAL VIDEO BACKGROUND --- */
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
         .video-background {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; overflow: hidden; background: #000;
         }
         .video-background video {
             width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.6; filter: grayscale(10%) contrast(120%);
+            opacity: 0.5; filter: grayscale(10%) contrast(120%);
         }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -50,7 +50,7 @@
         @keyframes pulseGlow { 0% { box-shadow: 0 0 10px var(--red-dark); } 50% { box-shadow: 0 0 35px var(--red-neon); } 100% { box-shadow: 0 0 10px var(--red-dark); } }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.5, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- HEADER --- */
@@ -117,17 +117,10 @@
         
         .hero p {
             font-size: clamp(1rem, 1.5vw, 1.3rem); color: #ffffff;
-            max-width: 850px; margin-bottom: 1rem; line-height: 1.6; font-weight: 500;
+            max-width: 850px; margin-bottom: 1.5rem; line-height: 1.6; font-weight: 500;
             text-shadow: 2px 2px 10px rgba(0,0,0,1), 0 0 20px rgba(255,0,60,0.4);
             background: rgba(0, 0, 0, 0.5); padding: 1rem 2rem; border-radius: 15px;
             border: 1px solid rgba(255, 0, 60, 0.3); backdrop-filter: blur(8px);
-        }
-
-        .hero-red-logo {
-            width: 390px; max-width: 70%; max-height: 10vh;
-            object-fit: contain; margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 25px rgba(255, 0, 60, 0.6));
-            animation: float 5s ease-in-out infinite reverse;
         }
 
         .cyber-btn {
@@ -145,7 +138,7 @@
         }
         .cyber-btn:active { transform: scale(0.95); }
 
-        /* --- INTERACTIVE SLIDER SHOWCASE --- */
+        /* --- SLIDER SHOWCASE SECTION --- */
         .slider-showcase-section {
             padding: 4rem 5% 5rem 5%;
             display: flex;
@@ -183,11 +176,7 @@
             border-bottom: 1px solid #222;
         }
 
-        .slider-frame-header .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
+        .slider-frame-header .dot { width: 10px; height: 10px; border-radius: 50%; }
         .slider-frame-header .dot.red { background: #ff003c; box-shadow: 0 0 8px #ff003c; }
         .slider-frame-header .dot.yellow { background: #eab308; }
         .slider-frame-header .dot.green { background: #22c55e; }
@@ -211,88 +200,44 @@
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            visibility: hidden;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; visibility: hidden;
             transition: opacity 0.6s ease-in-out, visibility 0.6s;
         }
-
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .slide.active { opacity: 1; visibility: visible; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.65);
-            color: #fff;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.65); color: #fff;
             border: 1px solid rgba(255, 0, 60, 0.4);
-            width: 44px;
-            height: 54px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
-            user-select: none;
+            width: 44px; height: 54px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; cursor: pointer; z-index: 10;
+            transition: all 0.2s ease; backdrop-filter: blur(5px);
         }
-
-        .slider-btn:hover {
-            background: var(--red-neon);
-            color: #000;
-            border-color: var(--red-neon);
-            box-shadow: 0 0 20px var(--red-neon);
-        }
-
+        .slider-btn:hover { background: var(--red-neon); color: #000; box-shadow: 0 0 20px var(--red-neon); }
         .prev-btn { left: 15px; border-radius: 6px 0 0 6px; }
         .next-btn { right: 15px; border-radius: 0 6px 6px 0; }
 
         .slider-dots {
-            position: absolute;
-            bottom: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
+            position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 10px; z-index: 10;
+            background: rgba(0, 0, 0, 0.6); padding: 6px 14px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px);
         }
 
         .dot-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3); cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .dot-indicator.active {
-            background: var(--red-neon);
-            box-shadow: 0 0 10px var(--red-neon);
+            background: var(--red-neon); box-shadow: 0 0 10px var(--red-neon);
             transform: scale(1.25);
         }
 
-        /* --- PLUGIN WORKFLOW & INTEGRATION ARCHITECTURE (NEW REPLACED SECTION) --- */
+        /* --- PLUGIN WORKFLOW SECTION --- */
         .workflow-section {
             padding: 6rem 5%;
             background: linear-gradient(to bottom, transparent, rgba(8, 8, 12, 0.95));
@@ -305,51 +250,23 @@
         .workflow-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            max-width: 1250px;
-            margin: 0 auto;
+            gap: 2rem; max-width: 1250px; margin: 0 auto;
         }
         .workflow-card {
-            background: rgba(14, 14, 18, 0.85);
-            border: 1px solid #282832;
-            border-top: 3px solid var(--red-neon);
-            border-radius: 10px;
-            padding: 2.2rem;
-            text-align: left;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            background: rgba(14, 14, 18, 0.85); border: 1px solid #282832;
+            border-top: 3px solid var(--red-neon); border-radius: 10px;
+            padding: 2.2rem; text-align: left; backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        .workflow-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--red-neon);
-            box-shadow: 0 12px 35px rgba(255, 0, 60, 0.2);
-        }
+        .workflow-card:hover { transform: translateY(-8px); border-color: var(--red-neon); box-shadow: 0 12px 35px rgba(255, 0, 60, 0.2); }
         .step-tag {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: var(--red-neon);
-            background: rgba(255, 0, 60, 0.1);
-            border: 1px solid var(--border-red);
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 1rem;
+            font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 2px;
+            color: var(--red-neon); background: rgba(255, 0, 60, 0.1);
+            border: 1px solid var(--border-red); padding: 2px 8px; border-radius: 4px;
+            display: inline-block; margin-bottom: 1rem;
         }
-        .workflow-card h3 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            color: #ffffff;
-            margin-bottom: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .workflow-card p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
+        .workflow-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.8rem; text-transform: uppercase; }
+        .workflow-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.65; }
 
         /* --- LOGO SHOWCASE --- */
         .showcase-section {
@@ -362,9 +279,21 @@
         .marquee-img { height: 90px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(255,255,255,0.05)); transition: 0.5s; }
         .marquee-img:hover { transform: scale(1.15); filter: drop-shadow(0 0 25px var(--red-neon)); }
 
-        /* --- PACKS & STORE SECTION --- */
+        /* --- STORE SECTION --- */
         .store-section { padding: 6rem 5%; background: rgba(0,0,0,0.98); }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 0 auto; }
+
+        /* --- PLUGINS 2-COLUMN GRID (SOL ALTA SABİTLEME & DİĞERLERİYLE EŞİT BOYUT) --- */
+        .plugins-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 2.5rem !important;
+            max-width: 1300px !important;
+            margin: 0 auto !important;
+        }
+        @media (max-width: 900px) {
+            .plugins-grid { grid-template-columns: 1fr !important; }
+        }
 
         .card {
             background: linear-gradient(145deg, #111, #050505); border: 1px solid #222;
@@ -383,20 +312,13 @@
 
         .pack-cover img { width: 70%; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 15px 15px rgba(0,0,0,1)); }
         
-        /* --- HEATWAVE 3-MODE ROTATION ANIMATION --- */
+        /* --- DÖNEN PNG GÖRSELLERİ ANİMASYONU --- */
         .vst-cover-anim {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background: #000;
+            width: 100%; height: 100%; position: relative; background: #000;
         }
         .vst-cover-anim img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: contain;
-            padding: 8px;
-            opacity: 0;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: contain; padding: 8px; opacity: 0;
             animation: vstCrossFade 9s infinite ease-in-out;
         }
         .vst-cover-anim img:nth-child(1) { animation-delay: 0s; }
@@ -411,6 +333,23 @@
             100% { opacity: 0; }
         }
 
+        /* --- GRAIN GLITCH METİN KATMANI (GÖRSELLERİN ÜSTÜNDE) --- */
+        .glitch-cover-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.35) 100%);
+            z-index: 5; pointer-events: none;
+        }
+        .glitch-title-text {
+            font-family: 'Oswald', sans-serif; font-size: 2.2rem; letter-spacing: 3px;
+            color: #ffffff; text-shadow: 2px 2px #00f0ff, -2px -2px #ff003c, 0 0 25px rgba(0, 240, 255, 0.8);
+            text-transform: uppercase;
+        }
+        .glitch-sub-text {
+            font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 2px;
+            color: #00f0ff; margin-top: 4px; text-shadow: 0 0 10px #00f0ff;
+        }
+
         .card-content { padding: 2rem; text-align: center; }
         .card-category { font-size: 0.8rem; color: var(--red-neon); text-transform: uppercase; font-weight: 800; letter-spacing: 2px; margin-bottom: 0.5rem; }
         .card h3 { font-family: 'Oswald', sans-serif; font-size: 1.6rem; margin-bottom: 1rem; }
@@ -419,82 +358,38 @@
         .price { font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: #fff; }
         .price span { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; margin-right: 0.5rem; }
 
-        /* --- DAW COMPATIBILITY DOCK --- */
+        /* --- DAW SUPPORT DOCK --- */
         .plugins-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem;
         }
         .daw-support-dock {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            background: rgba(14, 14, 18, 0.92);
-            border: 1px solid rgba(255, 0, 60, 0.35);
-            border-radius: 30px;
-            padding: 8px 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 0 10px rgba(255, 0, 60, 0.1);
-            backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 14px;
+            background: rgba(14, 14, 18, 0.92); border: 1px solid rgba(255, 0, 60, 0.35);
+            border-radius: 30px; padding: 8px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);
         }
         .daw-dock-label {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            border-right: 1px solid #333;
-            padding-right: 12px;
+            font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 1.5px;
+            color: var(--text-muted); text-transform: uppercase; border-right: 1px solid #333; padding-right: 12px;
         }
-        .daw-icons-group {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .daw-icons-group { display: flex; align-items: center; gap: 14px; }
         .daw-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #888;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            text-decoration: none;
+            display: flex; align-items: center; gap: 6px; color: #888;
+            transition: all 0.3s; cursor: pointer; text-decoration: none;
         }
-        .daw-item:hover {
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-        .daw-item:hover .daw-logo-svg {
-            color: var(--red-neon);
-            filter: drop-shadow(0 0 10px var(--red-neon));
-        }
-        .daw-logo-svg {
-            width: 24px;
-            height: 24px;
-            color: #999;
-            transition: all 0.3s ease;
-        }
-        .daw-name {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .daw-item:hover { color: #ffffff; transform: translateY(-2px); }
+        .daw-item:hover .daw-logo-svg { color: var(--red-neon); filter: drop-shadow(0 0 10px var(--red-neon)); }
+        .daw-logo-svg { width: 24px; height: 24px; color: #999; transition: 0.3s; }
+        .daw-name { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- VIP BANNER (MASTER VAULT $2.99 & COMING SOON) --- */
+        /* --- VIP BANNER --- */
         .vip-banner {
             display: flex; align-items: center; justify-content: space-between;
             background: linear-gradient(135deg, rgba(20,0,0,0.95), rgba(5,5,5,1));
             border: 1px solid var(--red-neon); border-radius: 20px; padding: 4rem;
             margin: 5rem auto 0 auto; max-width: 1300px;
             box-shadow: 0 0 40px rgba(255, 0, 60, 0.2); position: relative; overflow: hidden;
-        }
-        .vip-banner::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,0,60,0.03) 10px, rgba(255,0,60,0.03) 20px);
-            pointer-events: none;
         }
         .vip-info { width: 60%; text-align: left; z-index: 2; }
         .vip-info h2 { font-family: 'Oswald', sans-serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; line-height: 1.2; }
@@ -504,53 +399,31 @@
         .vip-visual img { width: 100%; max-width: 350px; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.9)); }
         
         .vault-status-badge {
-            background: rgba(255, 0, 60, 0.15);
-            border: 1px solid var(--red-neon);
-            color: var(--red-neon);
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            padding: 0.4rem 1.1rem;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+            background: rgba(255, 0, 60, 0.15); border: 1px solid var(--red-neon);
+            color: var(--red-neon); font-family: 'Oswald', sans-serif; font-size: 0.9rem;
+            letter-spacing: 2px; padding: 0.4rem 1.1rem; border-radius: 20px;
         }
 
         /* --- NEWSLETTER SECTION --- */
         .newsletter-section {
-            padding: 5rem 5%;
-            background: linear-gradient(to top, rgba(0,0,0,1), rgba(10,0,0,0.8));
+            padding: 5rem 5%; background: linear-gradient(to top, rgba(0,0,0,1), rgba(10,0,0,0.8));
             display: flex; justify-content: center; align-items: center; text-align: center;
         }
         .newsletter-box {
-            background: rgba(15, 15, 15, 0.7);
-            border: 1px solid #222; border-top: 3px solid var(--red-neon);
+            background: rgba(15, 15, 15, 0.7); border: 1px solid #222; border-top: 3px solid var(--red-neon);
             border-radius: 12px; padding: 4rem 2rem; max-width: 800px; width: 100%;
             backdrop-filter: blur(10px); box-shadow: 0 15px 40px rgba(0,0,0,0.7);
         }
-        .newsletter-box h3 {
-            font-family: 'Oswald', sans-serif; font-size: 2rem; color: #fff;
-            margin-bottom: 2rem; letter-spacing: 1px;
-        }
-        .newsletter-form {
-            display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;
-        }
+        .newsletter-box h3 { font-family: 'Oswald', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 2rem; }
+        .newsletter-form { display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap; }
         .newsletter-form input {
             padding: 1rem 1.5rem; font-family: 'Poppins', sans-serif; font-size: 1rem;
             background: rgba(0,0,0,0.6); border: 1px solid #444; color: #fff;
-            border-radius: 4px; width: 100%; max-width: 400px; outline: none; transition: 0.3s;
+            border-radius: 4px; width: 100%; max-width: 400px; outline: none;
         }
-        .newsletter-form input:focus {
-            border-color: var(--red-neon); box-shadow: 0 0 15px rgba(255,0,60,0.3);
-        }
-        .contact-info {
-            border-top: 1px solid #222; padding-top: 2rem; margin-top: 1rem;
-        }
-        .contact-info p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; font-weight: 300; }
-        .contact-info a { color: var(--red-neon); text-decoration: none; font-weight: 500; transition: 0.3s; }
-        .contact-info a:hover { text-shadow: 0 0 10px var(--red-neon); color: #fff; }
+        .contact-info { border-top: 1px solid #222; padding-top: 2rem; margin-top: 1rem; }
+        .contact-info p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+        .contact-info a { color: var(--red-neon); text-decoration: none; }
 
         /* --- TOAST NOTIFICATION --- */
         .toast-notification {
@@ -558,51 +431,31 @@
             background: rgba(12, 12, 12, 0.95); border: 1px solid #22c55e; border-left: 5px solid #22c55e;
             color: #fff; padding: 1.2rem 1.8rem; border-radius: 8px;
             display: flex; align-items: center; gap: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(34, 197, 94, 0.35);
-            z-index: 10000; opacity: 0; transform: translateY(30px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9); z-index: 10000;
+            opacity: 0; transform: translateY(30px); transition: all 0.5s; pointer-events: none;
         }
         .toast-notification.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .toast-icon {
-            width: 26px; height: 26px; background: #22c55e; color: #000;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 15px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
-        }
-        .toast-text { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #22c55e; text-transform: uppercase; }
+        .toast-icon { width: 26px; height: 26px; background: #22c55e; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+        .toast-text { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: #22c55e; }
 
         /* --- LIVE USER STATS WIDGET --- */
         .live-stats-widget {
             position: fixed; top: 90px; right: 5%;
             background: rgba(10, 10, 10, 0.85); border: 1px solid #333; border-left: 3px solid var(--red-neon);
             padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 15px;
-            backdrop-filter: blur(10px); box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-            z-index: 9998; font-family: 'Oswald', sans-serif; font-size: 0.9rem; color: var(--text-muted);
+            backdrop-filter: blur(10px); z-index: 9998; font-family: 'Oswald', sans-serif; font-size: 0.9rem; color: var(--text-muted);
         }
         .stat-item { display: flex; align-items: center; gap: 8px; }
-        .pulsing-dot {
-            width: 8px; height: 8px; background: #22c55e; border-radius: 50%;
-            box-shadow: 0 0 10px #22c55e; animation: pulseLive 2s infinite;
-        }
-        @keyframes pulseLive {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .number-roller {
-            position: relative; display: inline-block; width: 12px; height: 1.3rem;
-            overflow: hidden; vertical-align: middle; color: #fff; font-weight: 700;
-        }
-        .rolling-num {
-            position: absolute; left: 0; width: 100%; text-align: center;
-            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
+        .pulsing-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; animation: pulseLive 2s infinite; }
+        @keyframes pulseLive { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.5; } 100% { transform: scale(1); } }
+        .number-roller { position: relative; display: inline-block; width: 12px; height: 1.3rem; overflow: hidden; vertical-align: middle; color: #fff; font-weight: 700; }
+        .rolling-num { position: absolute; left: 0; width: 100%; text-align: center; transition: all 1s; }
         .rolling-num.current { top: 0; }
         .rolling-num.next { top: 100%; }
         .rolling-num.out { top: -100%; }
         .stat-divider { width: 1px; height: 16px; background: #444; }
         .highlight-num { color: #fff; font-weight: 700; }
-        
+
         @media (max-width: 768px) {
             .vip-banner { flex-direction: column; text-align: center; padding: 2rem; }
             .vip-info, .vip-visual { width: 100%; text-align: center; }
@@ -648,12 +501,10 @@
         
         <p>We craft high-octane sound designs, brutal drum kits, and immersive game audio assets. Step into the multiverse of keNT and arm your projects with industry-standard audio.</p>
         
-       
-        
         <a href="#store" class="cyber-btn" id="vault-btn">Access The Vault</a>
     </section>
 
-    <!-- INTERACTIVE SLIDER SHOWCASE -->
+    <!-- SLIDER SHOWCASE -->
     <section class="slider-showcase-section reveal">
         <div class="slider-frame-container">
             <div class="slider-frame-header">
@@ -698,7 +549,7 @@
         </div>
     </section>
 
-    <!-- NEW PLUGIN INTEGRATION & WORKFLOW SECTION (REPLACED FAKE REVIEWS) -->
+    <!-- WORKFLOW -->
     <section class="workflow-section">
         <div class="section-header reveal">
             <h2>Plugin <span>Architecture & Workflow</span></h2>
@@ -723,6 +574,7 @@
         </div>
     </section>
 
+    <!-- LOGO SHOWCASE -->
     <section class="showcase-section reveal">
         <div class="marquee-container">
             <div class="marquee-content">
@@ -769,6 +621,7 @@
                 </div>
             </div>
 
+            <!-- 2. CARD: INFERNO TRAP -->
             <div class="card reveal">
                 <div class="pack-cover bg-trap">
                     <img src="9cd8d5bd-e5f9-49f0-86a8-fec5c98f8933.png" alt="Trap Loops Logo">
@@ -784,6 +637,7 @@
                 </div>
             </div>
 
+            <!-- 3. CARD: CYBERPUNK UI -->
             <div class="card reveal">
                 <div class="pack-cover bg-game">
                     <img src="44b2deb3-9f38-47b6-ba34-938a3be930fe.png" alt="Game Audio Logo">
@@ -801,13 +655,12 @@
         </div>
     </section>
 
-    <!-- SECTION 2: PLUGINS SECTION -->
+    <!-- SECTION 2: PLUGINS SECTION (SENİN EKLEDİĞİN PARAGRAFLAR VE 2 SÜTUNLU IZGARA) -->
     <section id="plugins" class="store-section" style="margin-top: 5.5rem; padding-top: 4.5rem; border-top: 1px solid rgba(255, 0, 60, 0.25);">
         
         <div class="plugins-header-row reveal">
             <h2 style="font-family: 'Oswald', sans-serif; font-size: 3rem; text-transform: uppercase; margin: 0;">Audio <span style="color: var(--red-neon);">Plugins & VST</span></h2>
             
-            <!-- 5 BIG DAW LOGOS -->
             <div class="daw-support-dock">
                 <span class="daw-dock-label">ALL DAWS SUPPORTED:</span>
                 <div class="daw-icons-group">
@@ -865,10 +718,14 @@
             </div>
         </div>
 
-        <p style="color: var(--text-muted); font-size: 1rem; max-width: 800px; margin-bottom: 3rem; text-align: left;" class="reveal">SOUND PLUGIN EXTENTIONS DESIGNED FOR DIRECT USE IN ALL DAW'S and GAME DEVELOPMENT SOFTWARES. Our audio plugins bring professional sound design straight to your MUSIC & GAMES.</p>
-        <p style="color: var(--text-muted); font-size: 1rem; max-width: 800px; margin-bottom: 3rem; text-align: left;" class="reveal">QUICK INSTALL GUIDE:   Extract the ZIP and place "FOR EXAMPLE" Heatwave.vst3 into your VST folder -> Windows: C:\Program Files\Common Files\VST3\ -> Rescan plugins in your DAW settings.</p>
-        <div class="grid-container">
-            <!-- 1. CARD: HEATWAVE -->
+        <!-- SENİN EKLEDİĞİN ÖZEL REHBER METİNLERİ KORUNDU -->
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 800px; margin-bottom: 1rem; text-align: left;" class="reveal">SOUND PLUGIN EXTENSIONS DESIGNED FOR DIRECT USE IN ALL DAW'S AND GAME DEVELOPMENT SOFTWARES. Our audio plugins bring professional sound design straight to your MUSIC & GAMES.</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; max-width: 850px; margin-bottom: 3rem; text-align: left;" class="reveal">QUICK INSTALL GUIDE: Extract the ZIP and place "FOR EXAMPLE" Heatwave.vst3 into your VST folder -&gt; Windows: C:\Program Files\Common Files\VST3\ -&gt; Rescan plugins in your DAW settings.</p>
+
+        <!-- 2 SÜTUNLU GRİD: 1. SOL ÜST, 2. SAĞ ÜST, 3. SOL ALT (EŞİT BOYUT) -->
+        <div class="grid-container plugins-grid">
+            
+            <!-- 1. KART: HEATWAVE (SOL ÜST) -->
             <div class="card reveal">
                 <div class="pack-cover">
                     <div class="vst-cover-anim">
@@ -882,13 +739,13 @@
                     <h3>Heatwave Distortion & Clipper</h3>
                     <p>A hybrid distortion engine and multi-stage hard clipper designed for aggressive 808s, punching kicks, vocals, and synths. Switch between Tape, Tube, and digital Clip modes with real-time waveform monitoring.</p>
                     <div class="price-row">
-                        <span class="price"><span>$8.99</span>FREE RELEASE</span>
+                        <span class="price"><span>$39.99</span>FREE RELEASE</span>
                         <a href="download-heatwave.html" class="cyber-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem; display: inline-block; text-decoration: none;">⚡ Download VST3</a>
                     </div>
                 </div>
             </div>
 
-           <!-- 2. CARD: E.Z REVERB JOKER (ACTIVE VST) -->
+            <!-- 2. KART: E.Z REVERB JOKER (SAĞ ÜST) -->
             <div class="card reveal">
                 <div class="pack-cover" style="background: radial-gradient(circle, rgba(157,78,221,0.2) 0%, rgba(0,0,0,0.95) 80%);">
                     <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: contain; padding: 6px;">
@@ -900,14 +757,39 @@
                     <h3>E.Z REVERB JOKER</h3>
                     <p>Unconventional arcade aesthetic meets elite acoustic DSP. Features 6 distinct algorithm levels from gritty Lo-Fi to infinite lush spaces with built-in 3-band parametric sculpting.</p>
                     <div class="price-row">
-                        <span class="price"><span>$14.99</span>FREE RELEASE</span>
+                        <span class="price"><span>$39.99</span>FREE RELEASE</span>
                         <a href="download-reverb.html" class="cyber-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem; display: inline-block; text-decoration: none;">⚡ Download VST3</a>
                     </div>
                 </div>
             </div>
+
+            <!-- 3. KART: GRAIN GLITCH (SOL ALTTA, DİĞERLERİYLE BİREBİR AYNI BOYUTTA & DÖNEN 3 PNG ÜZERİNDE METİN) -->
+            <div class="card reveal">
+                <div class="pack-cover" style="position: relative; overflow: hidden; background: #000;">
+                    <div class="vst-cover-anim">
+                        <img src="grainglitch-step1.png" alt="Grain Glitch 1/16 Cloud Mode">
+                        <img src="grainglitch-step2.png" alt="Grain Glitch 1/2 Slow Mode">
+                        <img src="grainglitch-step3.png" alt="Grain Glitch 1 Bar Deep Mode">
+                    </div>
+                    <div class="glitch-cover-overlay">
+                        <div class="glitch-title-text">GRAIN GLITCH</div>
+                        <span class="glitch-sub-text">// GRANULAR STUTTER ENGINE</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-category" style="color: #00f0ff;">VST3 • Granular / Glitch FX</div>
+                    <h3>Grain Glitch</h3>
+                    <p>Real-time micro-granular stutter, buffer freeze, and chaotic pitch shifting. Forged to dissect and mutate loops, synths, and percussions on the fly.</p>
+                    <div class="price-row">
+                        <span class="price"><span>$39.99</span>FREE RELEASE</span>
+                        <a href="download-grainglitch.html" class="cyber-btn" style="padding: 0.6rem 1.4rem; font-size: 1rem; display: inline-block; text-decoration: none;">⚡ Download VST3</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- UPDATED VIP BANNER ($2.99 MONTHLY & COMING SOON) -->
+        <!-- THE MASTER VAULT -->
         <div class="vip-banner reveal">
             <div class="vip-info">
                 <h2>THE MASTER VAULT <span>[VIP]</span></h2>
